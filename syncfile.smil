@@ -1,0 +1,78 @@
+<smil xmlns="http://www.w3.org/ns/SMIL" xmlns:epub="http://www.idpf.org/2007/ops" version="3.0">
+  <body>
+    <seq id="seq000001" epub:textref="text.txt">
+      <par id="par000001">
+        <text src="text.txt#f000001"/>
+        <audio src="audio.mp3" clipBegin="00:00:00.000" clipEnd="00:00:10.080"/>
+      </par>
+      <par id="par000002">
+        <text src="text.txt#f000002"/>
+        <audio src="audio.mp3" clipBegin="00:00:10.080" clipEnd="00:00:17.560"/>
+      </par>
+      <par id="par000003">
+        <text src="text.txt#f000003"/>
+        <audio src="audio.mp3" clipBegin="00:00:17.560" clipEnd="00:00:20.760"/>
+      </par>
+      <par id="par000004">
+        <text src="text.txt#f000004"/>
+        <audio src="audio.mp3" clipBegin="00:00:20.760" clipEnd="00:00:27.520"/>
+      </par>
+      <par id="par000005">
+        <text src="text.txt#f000005"/>
+        <audio src="audio.mp3" clipBegin="00:00:27.520" clipEnd="00:00:28.080"/>
+      </par>
+      <par id="par000006">
+        <text src="text.txt#f000006"/>
+        <audio src="audio.mp3" clipBegin="00:00:28.080" clipEnd="00:00:28.320"/>
+      </par>
+      <par id="par000007">
+        <text src="text.txt#f000007"/>
+        <audio src="audio.mp3" clipBegin="00:00:28.320" clipEnd="00:00:28.600"/>
+      </par>
+      <par id="par000008">
+        <text src="text.txt#f000008"/>
+        <audio src="audio.mp3" clipBegin="00:00:28.600" clipEnd="00:00:29.160"/>
+      </par>
+      <par id="par000009">
+        <text src="text.txt#f000009"/>
+        <audio src="audio.mp3" clipBegin="00:00:29.160" clipEnd="00:00:29.440"/>
+      </par>
+      <par id="par000010">
+        <text src="text.txt#f000010"/>
+        <audio src="audio.mp3" clipBegin="00:00:29.440" clipEnd="00:00:30.640"/>
+      </par>
+      <par id="par000011">
+        <text src="text.txt#f000011"/>
+        <audio src="audio.mp3" clipBegin="00:00:30.640" clipEnd="00:00:31.760"/>
+      </par>
+      <par id="par000012">
+        <text src="text.txt#f000012"/>
+        <audio src="audio.mp3" clipBegin="00:00:31.760" clipEnd="00:00:32.040"/>
+      </par>
+      <par id="par000013">
+        <text src="text.txt#f000013"/>
+        <audio src="audio.mp3" clipBegin="00:00:32.040" clipEnd="00:00:32.160"/>
+      </par>
+      <par id="par000014">
+        <text src="text.txt#f000014"/>
+        <audio src="audio.mp3" clipBegin="00:00:32.160" clipEnd="00:00:32.960"/>
+      </par>
+      <par id="par000015">
+        <text src="text.txt#f000015"/>
+        <audio src="audio.mp3" clipBegin="00:00:32.960" clipEnd="00:00:33.240"/>
+      </par>
+      <par id="par000016">
+        <text src="text.txt#f000016"/>
+        <audio src="audio.mp3" clipBegin="00:00:33.240" clipEnd="00:00:33.680"/>
+      </par>
+      <par id="par000017">
+        <text src="text.txt#f000017"/>
+        <audio src="audio.mp3" clipBegin="00:00:33.680" clipEnd="00:00:34.760"/>
+      </par>
+      <par id="par000018">
+        <text src="text.txt#f000018"/>
+        <audio src="audio.mp3" clipBegin="00:00:34.760" clipEnd="00:01:12.200"/>
+      </par>
+    </seq>
+  </body>
+</smil>
