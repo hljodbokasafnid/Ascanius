@@ -5,9 +5,13 @@ Projects goal is to automate the creation of full-text (sound and text) ebooks i
 ## Requirements & Setup
 
 Python 3.7 https://www.python.org/downloads/release/python-370/
+
 Python 2.7 https://www.python.org/download/releases/2.7/
+
 Microsoft Visual C++ Compiler for Python 2.7 https://www.microsoft.com/EN-US/DOWNLOAD/DETAILS.ASPX?ID=44266
+
 Aeneas https://github.com/sillsdev/aeneas-installer/releases
+
 
 Aeneas has seperate requirements that come with the aeneas-installer but can be installed seperately using pip.
 
