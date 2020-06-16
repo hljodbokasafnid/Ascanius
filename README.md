@@ -21,7 +21,8 @@ Aeneas has seperate requirements that come with the aeneas-installer but can be 
 - lxml
 - numpy
 
-If issues arise with CEW then go into System Properties -> Environment Variables
+If issues arise with CEW then go into System Properties -> Environment Variables,
+
 Add a new variable under System Variables named "AENEAS_WITH_CEW" and set it to "False"
 
 ## Contributing
