@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <%- include("partials/_head.ejs")%>
-    <body>
-        <section class="hero is-fullheight">
-            <!-- To be continued..-->
-        </section>
-    </body>
+<%- include("partials/_head.ejs")%>
+
+<body>
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="field">
+          <div class="file is-centered is-boxed is-success has-name">
+            <label class="file-label">
+              <input class="file-input" type="file" name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Upload files here...
+                </span>
+              </span>
+              <span class="file-name">
+                HBS Temporary
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
 </html>
