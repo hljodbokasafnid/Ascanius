@@ -1,0 +1,32 @@
+{
+  "name": "hbs-full-text-automation",
+  "version": "1.0.0",
+  "description": "Projects goal is to automate the creation of full-text (sound and text) ebooks in epub/epub3/daisy format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "css-build": "node-sass --omit-source-map-url sass/bulma.scss public/css/bulma.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sanctusz/HBS-Full-Text-Automation.git"
+  },
+  "author": "Jóhann S. Ingason - HBS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sanctusz/HBS-Full-Text-Automation/issues"
+  },
+  "homepage": "https://github.com/Sanctusz/HBS-Full-Text-Automation#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "serve-index": "^1.9.1"
+  },
+  "devDependencies": {
+    "bulma": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4"
+  }
+}
