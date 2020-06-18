@@ -13,11 +13,11 @@ mp3files.pop()
 
 for i, mp3 in enumerate(mp3files):
     # Setup config string & absolute file path for audio/text/syncfile
-    config_string = u"task_language=isl|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|is_text_unparsed_id_regex=jrrg_[0-9]+".format(mp3)
+    config_string = u"task_language=isl|is_text_type=unparsed|is_text_unparsed_id_regex=h*|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref=b27919.html".format(mp3)
     task = Task(config_string=config_string)
     task.audio_file_path_absolute = u"./input/bok1/{}".format(mp3)
-    task.text_file_path_absolute = u"./input/bok1/book.xhtml"
-    task.sync_map_file_path_absolute = u"./output/bok1/s{}.smil".format(i+1)
+    task.text_file_path_absolute = u"./input/bok1/b{}.html".format(i)
+    task.sync_map_file_path_absolute = u"./output/bok1/s0{}.smil".format(i+1)
 
     print("Running task nr:", i+1)
 
