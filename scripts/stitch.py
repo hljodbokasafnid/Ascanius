@@ -2,6 +2,10 @@ from pydub import AudioSegment
 from os import listdir
 from os.path import isfile, join
 
+# Was used for testing purposes
+# Having 1 large audio file and 1 full-length html text does not work well with Aeneas
+# Keeping this code for now if needed later for further testing
+
 mp3files = [f for f in listdir("././input/bok1/") if isfile(join("././input/bok1/", f))]
 mp3files.pop()
 
