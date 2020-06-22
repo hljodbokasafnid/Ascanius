@@ -24,15 +24,16 @@ if __name__ == "__main__":
     # Run through each mp3 file and book segment
     for i, mp3 in enumerate(mp3files):
         # Setup config string & absolute file path for audio/text/syncfile
-        config_string = u"task_language=isl|is_text_type=unparsed|is_text_unparsed_id_regex=h*|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref=b27919.html".format(mp3)
+        config_string = u"task_language=isl|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref=b3.html|task_adjust_boundary_nonspeech_min=1.0|task_adjust_boundary_nonspeech_string=REMOVE".format(mp3)
         # Create Task
         task = Task(config_string=config_string)
         task.audio_file_path_absolute = u"./input/{}/{}".format(bookname, mp3)
         task.text_file_path_absolute = u"./input/{}/segments/b{}.html".format(bookname, i+1)
-        # TODO change the smil naming convention to s + 3 digits with leading 0's
-        task.sync_map_file_path_absolute = u"./output/{}/s0{}.smil".format(bookname, i+1)
+        # Each smil file is named s + number with leading zeros
+        task.sync_map_file_path_absolute = u"./output/{}/s{}.smil".format(bookname, str(i+1).zfill(3))
 
-        # print("Running task nr:", i+1)
+        # Debug print
+        print("Running task nr:", i+1)
 
         # Execute Task to output path
         ExecuteTask(task).execute()
