@@ -15,10 +15,18 @@ app.get("/", function(req, res) {
 
 const spawn = require("child_process").spawn;
 
-const process = spawn('python', ['./test.py']);
+const process = spawn('python3', ['./main.py', 'bok1']);
 
-process.stdout.on('data', (data) => {
-    console.log(data.toString());
+var responseData = "";
+
+process.stdout.on('data', function (data){
+    responseData += data.toString();
+    console.log(data);
+});
+
+process.stderr.on('data', function (data){
+    responseData += 'err: ' + data.toString();
+    console.log(responseData);
 });
 
 module.exports = app;
