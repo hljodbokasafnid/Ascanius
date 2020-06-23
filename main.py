@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # Uses a script to segment the book
     # Outputs the segments to a seperate folder located in ./output/bookname/
-    segment(bookname)
+    # segment(bookname)
 
     # Only include the text files that end in html
     segments = [f for f in listdir("./input/{}/segments/".format(bookname)) if isfile(join("./input/{}/segments/".format(bookname), f)) and f.endswith(".html")]
@@ -24,7 +24,10 @@ if __name__ == "__main__":
     # Run through each mp3 file and book segment
     for i, mp3 in enumerate(mp3files):
         # Setup config string & absolute file path for audio/text/syncfile
-        config_string = u"task_language=isl|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref=b3.html|task_adjust_boundary_nonspeech_min=1.0|task_adjust_boundary_nonspeech_string=REMOVE".format(mp3)
+
+        # Changed "task_adjust_boundary_nonspeech_min=1.0|task_adjust_boundary_nonspeech_string=REMOVE" from config string may be useful..
+
+        config_string = u"task_language=isl|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref={}.html|task_adjust_boundary_nonspeech_min=0.05|task_adjust_boundary_nonspeech_string=REMOVE".format(mp3, bookname)
         # Create Task
         task = Task(config_string=config_string)
         task.audio_file_path_absolute = u"./input/{}/{}".format(bookname, mp3)
