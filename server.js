@@ -3,15 +3,42 @@ const app = express();
 
 const path = require("path");
 const bodyParser = require("body-parser");
+const fs = require("fs");
+const shell = require("shelljs");
+const formidable = require("formidable");
+const formidableMiddleware = require('express-formidable');
+const serveIndex = require("serve-index");
+const books = require("./libs/books");
+
 app.use(bodyParser.json());
 app.set("view-engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-const serveIndex = require("serve-index");
-const books = require("./libs/books");
 app.use("/uploads/", serveIndex(__dirname + "/public/uploads/"));
 
-app.get("/", async function(req, res) {
+app.use(formidableMiddleware({
+    encoding: 'utf-8',
+    uploadDir: __dirname + "/public/uploads/",
+    multiples: true,
+}));
+
+app.get("/", async function (req, res) {
     res.render("index.ejs", { zip_files: await books.get_books() });
+});
+
+app.post("/upload", async function (req, res) {
+
+    // Get the html name, make a new folder with same name
+
+    // If the folder does not exist, make it
+
+    // Write the uploaded files to the folder
+
+    // Start the processing etc.
+
+    // if (!fs.existsSync()) {
+    //     shell.mkdir("-p", path)
+    // }
+    // return res.render("index.ejs", { zip_files: await books.get_books() });
 });
 
 // const spawn = require("child_process").spawn;

@@ -49,11 +49,17 @@ Use the following commands:
 
 ## Contributing
 
-TBD
+If you wish to contribute please contact HBS directly
 
 ## Usage
 
-TBD
+- Start the server with npm start
+- Upload mp3 files with the html file
+- Make sure that each mp3 file correspondes to a header (h1, h2, etc.) in the file
+- Wait for the script to finish creating the smil files
+- Download zip file containing smil files
+- Unzip the contents into a folder containing ncc.html, bookname.html and mp3 files
+- You should now have a working full-text book
 
 ## License
 

@@ -7,22 +7,26 @@
     <div class="hero-body">
       <div class="container">
         <div class="field">
-          <div class="file is-centered is-boxed is-primary has-name">
-            <label class="file-label">
-              <input class="file-input" type="file" name="resume">
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
+          <form id="uploadform" action="/upload" method="POST">
+            <div id="uploadfiles" class="file is-centered is-boxed is-primary has-name is-large">
+              <label class="file-label">
+                <input class="file-input" type="file" name="uploads" accept=".html, .mp3" multiple="multiple" hidden>
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Upload files here...
+                  </span>
                 </span>
-                <span class="file-label">
-                  Upload files here...
+                <span class="file-name has-text-centered">
+                  You can also drag and drop!
+                  <!-- TODO in the future -->
                 </span>
-              </span>
-              <span class="file-name">
-                HBS Temporary
-              </span>
-            </label>
-          </div>
+              </label>
+            </div>
+            <input id="submit-btn" type="submit" hidden/>
+          </form>
         </div>
       </div>
     </div>
@@ -32,12 +36,25 @@
       <% if (zip_files.length != 0) { %>
       <% for(var i = 0; i < zip_files.length; i++) { %>
       <a href="output/<%=zip_files[i]%>" class="box has-background-primary has-text-white">
-        <p><%=zip_files[i]%></p>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
+            <div class="level-item">
+              <p><%= zip_files[i].filename %></p>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <p><%= new Date(zip_files[i].date).toLocaleString() %></p>
+            </div>
+          </div>
+        </nav>
       </a>
       <%}%>
         <%}%>
     </div>
   </section>
+<script src="javascript/upload.js"></script>
 </body>
 
 </html>
