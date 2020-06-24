@@ -22,9 +22,9 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
-with open("./27919.html", "r", encoding="utf8") as f:
-    html = f.read()
-    stripped = strip_tags(html)
+# with open("./27919.html", "r", encoding="utf8") as f:
+#     html = f.read()
+#     stripped = strip_tags(html)
 
-with open("./bookplain.txt", "w", encoding="utf8") as f:
-    f.write(stripped)
+# with open("./bookplain.txt", "w", encoding="utf8") as f:
+#     f.write(stripped)

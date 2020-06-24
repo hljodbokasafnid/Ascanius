@@ -7,26 +7,27 @@ app.use(bodyParser.json());
 app.set("view-engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 const serveIndex = require("serve-index");
+const books = require("./libs/books");
 app.use("/uploads/", serveIndex(__dirname + "/public/uploads/"));
 
-app.get("/", function(req, res) {
-    res.render("index.ejs");
+app.get("/", async function(req, res) {
+    res.render("index.ejs", { zip_files: await books.get_books() });
 });
 
-const spawn = require("child_process").spawn;
+// const spawn = require("child_process").spawn;
 
-const process = spawn('python3', ['./main.py', 'bok1']);
+// const process = spawn('python3', ['./main.py', 'bok1']);
 
-var responseData = "";
+// var responseData = "";
 
-process.stdout.on('data', function (data){
-    responseData += data.toString();
-    console.log(data);
-});
+// process.stdout.on('data', function (data){
+//     responseData += data.toString();
+//     console.log(data);
+// });
 
-process.stderr.on('data', function (data){
-    responseData += 'err: ' + data.toString();
-    console.log(responseData);
-});
+// process.stderr.on('data', function (data){
+//     responseData += 'err: ' + data.toString();
+//     console.log(responseData);
+// });
 
 module.exports = app;

@@ -106,3 +106,5 @@ dist
 # Custom
 input/
 output/
+public/uploads/
+public/output/

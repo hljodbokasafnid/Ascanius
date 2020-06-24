@@ -3,7 +3,7 @@
 <%- include("partials/_head.ejs")%>
 
 <body>
-  <section class="hero is-fullheight">
+  <section class="hero is-halfheight">
     <div class="hero-body">
       <div class="container">
         <div class="field">
@@ -25,6 +25,17 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <% if (zip_files.length != 0) { %>
+      <% for(var i = 0; i < zip_files.length; i++) { %>
+      <a href="output/<%=zip_files[i]%>" class="box has-background-primary has-text-white">
+        <p><%=zip_files[i]%></p>
+      </a>
+      <%}%>
+        <%}%>
     </div>
   </section>
 </body>
