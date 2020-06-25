@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 function get_books() {
+    // Returns a list of books as zip files sorted by upload/creation date
     return new Promise(resolve => {
         zip_files = [];
         // Joining path of directory 

@@ -7,10 +7,11 @@
     <div class="hero-body">
       <div class="container">
         <div class="field">
-          <form id="uploadform" action="/upload" method="POST">
-            <div id="uploadfiles" class="file is-centered is-boxed is-primary has-name is-large">
+          <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+            <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
               <label class="file-label">
                 <input class="file-input" type="file" name="uploads" accept=".html, .mp3" multiple="multiple" hidden>
+                <input id="upload-folder" type="text" name="folder" value="notset" hidden/>
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-upload"></i>
@@ -25,7 +26,7 @@
                 </span>
               </label>
             </div>
-            <input id="submit-btn" type="submit" hidden/>
+            <!-- upload.js automatically submits the form when files input changes -->
           </form>
         </div>
       </div>
