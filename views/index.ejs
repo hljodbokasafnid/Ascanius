@@ -11,7 +11,6 @@
             <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
               <label class="file-label">
                 <input class="file-input" type="file" name="uploads" accept=".html, .mp3" multiple="multiple" hidden>
-                <input id="upload-folder" type="text" name="folder" value="notset" hidden/>
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-upload"></i>
@@ -36,7 +35,7 @@
     <div class="container">
       <% if (zip_files.length != 0) { %>
       <% for(var i = 0; i < zip_files.length; i++) { %>
-      <a href="output/<%=zip_files[i]%>" class="box has-background-primary has-text-white">
+      <a href="output/<%=zip_files[i]['filename']%>" class="box has-background-primary has-text-white">
         <nav class="level">
           <div class="level-left">
             <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
