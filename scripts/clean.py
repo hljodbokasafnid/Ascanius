@@ -16,7 +16,8 @@ h = soup.find_all(re.compile("span|h1|h2|h3|h4"), id=re.compile("h[0-9]_[0-9]|")
 
 with open("././public/uploads/bok2/bok2.html", "w", encoding="utf8") as f:
     for i in h:
-        # Some documents may have h2 or even h3, for simplicity sake we just change them to h1 for the segment script
+        # Some documents may have h2 or even h3,h4,h5?h6??
+        # for simplicity sake we just change them to h1 for the segment script
         i = str(i).replace("<h2", "<h1")
         i = str(i).replace("</h2", "</h1")
         i = str(i).replace("<h3", "<h1")
