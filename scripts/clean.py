@@ -1,15 +1,26 @@
 import re
 from bs4 import BeautifulSoup
 
-# Open the book, keep only what we need, give the output file to the segment script
-
-with open("././public/uploads/bok1/bok1.html", "r", encoding="utf8") as f:
+with open("././public/uploads/bok2/bok2unclean.html", "r", encoding="utf8") as f:
     html_doc = f.read()
 
 soup = BeautifulSoup(html_doc, 'html.parser')
 
-h = soup.find_all(re.compile("h1|p"), id=re.compile("h[0-9]_[0-9]|hix[0-9]+"))
+# jrrg_[0-9]+|hix[0-9]+
+# swol_[0-9]+|hix[0-9]+
 
-with open("././public/uploads/bok1/bok1clean.html", "w", encoding="utf8") as f:
+def is_sentence_or_h1(css_class):
+    return css_class is None or css_class == "sentence"
+
+h = soup.find_all(re.compile("span|h1|h2|h3|h4"), id=re.compile("h[0-9]_[0-9]|"), class_=is_sentence_or_h1)
+
+with open("././public/uploads/bok2/bok2.html", "w", encoding="utf8") as f:
     for i in h:
+        # Some documents may have h2 or even h3, for simplicity sake we just change them to h1 for the segment script
+        i = str(i).replace("<h2", "<h1")
+        i = str(i).replace("</h2", "</h1")
+        i = str(i).replace("<h3", "<h1")
+        i = str(i).replace("</h3", "</h1")
+        i = str(i).replace("<h4", "<h1")
+        i = str(i).replace("</h4", "</h1")
         f.write(str(i) + "\n")
