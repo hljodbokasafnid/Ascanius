@@ -26,5 +26,3 @@ def segment(bookname="bok1"):
     #     with open("././public/uploads/{}/segments/b{}.txt".format(bookname, i + 1), "w", encoding="utf8") as f:
     #         # Write each segment into a seperate html file for later use
     #         f.write(segment)
-
-segment()
