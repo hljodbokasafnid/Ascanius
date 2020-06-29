@@ -2,6 +2,7 @@ from aeneas.executetask import ExecuteTask
 from aeneas.task import Task
 from os import listdir
 from os.path import isfile, join
+from scripts.clean import clean
 from scripts.segment import segment
 import sys
 import shutil
@@ -13,6 +14,10 @@ if __name__ == "__main__":
 
     # Only include the mp3 files
     mp3files = [f for f in listdir("./public/uploads/{}/".format(bookname)) if isfile(join("./public/uploads/{}/".format(bookname), f)) and f.endswith(".mp3")]
+
+    # Clean the book before segmenting
+    # Combs the book for headers and sentences
+    clean(bookname)
 
     # Uses a script to segment the book
     # Outputs the segments to a seperate folder located in ./output/bookname/
