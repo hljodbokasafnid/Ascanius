@@ -19,6 +19,8 @@ def clean(bookname):
         for i in h:
             # Some documents may have h2 or even h3,h4,h5?h6??
             # for simplicity sake we just change them to h1 for the segment script
+            # the segment script needs to split everything on h1 basis
+            # therefore we replace all headings with h1
             i = str(i).replace("<h2", "<h1")
             i = str(i).replace("</h2", "</h1")
             i = str(i).replace("<h3", "<h1")
