@@ -11,9 +11,12 @@ def clean(bookname):
     # swol_[0-9]+|hix[0-9]+
 
     def is_sentence_or_h1(css_class):
-        return css_class is None or css_class == "sentence" or css_class == "title"
+        return css_class is None or css_class == "sentence" or css_class == "title" or css_class == "page-normal"
+    
+    def has_id_or_not(css_id):
+        return css_id is None or bool(re.compile("h[0-9]_[0-9]|hix[0-9]+"))
 
-    h = soup.find_all(re.compile("span|h1|h2|h3|h4"), id=re.compile("h[0-9]_[0-9]|"), class_=is_sentence_or_h1)
+    h = soup.find_all(re.compile("span|h1|h2|h3|h4"), id=has_id_or_not, class_=is_sentence_or_h1)
 
     with open("././public/uploads/{}/{}.html".format(bookname, bookname), "w", encoding="utf8") as f:
         for i in h:

@@ -43,8 +43,9 @@ if __name__ == "__main__":
         # Each smil file is named s + number with leading zeros
         task.sync_map_file_path_absolute = u"./public/output/{}/s{}.smil".format(bookname, str(i+1).zfill(3))
 
-        # Debug print
-        print("Running task nr: {}/{}".format(i+1, len(mp3files)))
+        # stdout.flush forces the progress print to be relayed to the server in real time
+        print("{}/{}".format(i+1, len(mp3files)))
+        sys.stdout.flush()
 
         # Execute Task to output path
         ExecuteTask(task).execute()
