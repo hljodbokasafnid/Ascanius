@@ -3,6 +3,7 @@ from os.path import isfile, join
 import sys
 
 # Testing purposes atm, not a finalized solution
+# Redundant code, may be deleted later, we simply upload the ncc file and get the expected prefix from there
 # run by calling rename.py from root HBS folder with the parameters bookname and smil_prefix
 # ex. python scripts/rename.py name abcd
 

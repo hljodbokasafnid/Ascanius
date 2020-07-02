@@ -3,8 +3,8 @@ fileInput.onchange = () => {
   $(".progress-bar").text("0%");
   $(".progress-bar").attr("value", 0);
   if (fileInput.files.length > 0) {
-    const fileName = document.querySelector('#upload-files .file-name');
-    fileName.textContent = "Uploading Files..";
+    const description = document.querySelector('#upload-files .file-name');
+    description.textContent = "Uploading Files..";
     var formData = new FormData();
     for (var i = 0; i < fileInput.files.length; i++) {
       var filename = fileInput.files[i].name;
@@ -21,9 +21,6 @@ fileInput.onchange = () => {
       data: formData,
       processData: false,
       contentType: false,
-      success: function() {
-        window.location.reload();
-      },
       xhr: function() {
         var xhr = new XMLHttpRequest();
 
@@ -36,6 +33,7 @@ fileInput.onchange = () => {
             $(".progress-bar").attr("value", percentComplete);
 
             if (percentComplete === 100) {
+              description.textContent = "Aeneas Processing.."
               console.log("upload completed, " + percentComplete + "%");
             }
           }

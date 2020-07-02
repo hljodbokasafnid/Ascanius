@@ -15,7 +15,7 @@ app.set("view-engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads/", serveIndex(__dirname + "/public/uploads/"));
 
-app.post('/upload/:folder', function (req, res) {
+app.post('/upload/:folder', async function (req, res) {
     // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
 
     const book_name = req.params['folder'];
@@ -41,7 +41,7 @@ app.post('/upload/:folder', function (req, res) {
         if (err) {
             return res.end("Error uploading file.");
         }
-        return await aeneas.call_aeneas(book_name);
+        return await aeneas.call_aeneas(req, res, book_name);
     });
 
     // reload the webpage when the aeneas script is done working on the smil files

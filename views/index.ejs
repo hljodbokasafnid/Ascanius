@@ -60,6 +60,15 @@
     </div>
   </section>
   <script src="javascript/upload.js"></script>
+    
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    socket.on('newdata', function(d){
+      // Do something with the data
+      console.log(d);
+    })
+  </script>
 </body>
 
 </html>

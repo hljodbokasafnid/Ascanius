@@ -1,6 +1,3 @@
-from os import listdir, rename
-from os.path import isfile, join
-import sys
 from bs4 import BeautifulSoup
 
 def get_smil_prefix(bookname):
