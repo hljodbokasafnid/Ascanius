@@ -7,14 +7,14 @@ fileInput.onchange = () => {
     fileName.textContent = "Uploading Files..";
     var formData = new FormData();
     for (var i = 0; i < fileInput.files.length; i++) {
-      if (fileInput.files[i].name.includes("html")) {
+      var filename = fileInput.files[i].name;
+      if (filename.includes("html") && filename !== "ncc.html") {
         // Put the html file name as the uploads folder name, forwarded using the form
         uploadpath = '/upload/' + fileInput.files[i].name.split(".")[0];
         document.getElementById('upload-form').action = uploadpath;
       }
       formData.append('uploads', fileInput.files[i]);
     }
-
     $.ajax({
       url: uploadpath,
       type: "POST",

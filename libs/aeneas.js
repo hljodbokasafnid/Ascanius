@@ -4,8 +4,6 @@ function call_aeneas(book_name) {
     return new Promise(resolve => {
         var process = spawn('python3', ['./main.py', book_name]);
 
-        //var responseData = "";
-
         process.stdout.on('data', function (data){
             // Receive progress from aeneas script
             // TODO relay progress to server/website
