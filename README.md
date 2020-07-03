@@ -49,7 +49,7 @@ Use the following commands:
 
 ## Contributing
 
-If you wish to contribute please contact HBS directly
+If you wish to contribute please contact HBS directly http://www.hbs.is
 
 ## Usage
 
@@ -58,7 +58,9 @@ If you wish to contribute please contact HBS directly
 - Make sure that each mp3 file correspondes to a header (h1, h2, etc.) in the file
 - Wait for the script to finish creating the smil files
 - Download zip file containing smil files
-- Unzip the contents into a folder containing ncc.html, bookname.html and mp3 files
+- Unzip the contents into a folder containing ncc.html, bookname.html, mp3 files and any other necessary files (/images, style.css)
+- Open the ncc file in Hindenburg to standardize all the files
+- Export epub/epub3/daisy from Hindenburg
 - You should now have a working full-text book
 
 ## License
