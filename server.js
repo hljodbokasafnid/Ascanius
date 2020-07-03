@@ -43,14 +43,9 @@ app.post('/upload/:folder', async function (req, res) {
         if (err) {
             return res.end("Error uploading file.");
         }
-        //return await aeneas.call_aeneas(req, res, book_name);
+        // If upload finishes then the client will emit a socket io message.
+        // Nothing more needs to be done here.
     });
-
-    // reload the webpage when the aeneas script is done working on the smil files
-    if (script_done) {
-        console.log(script_done);
-        res.redirect("/");
-    }
 });
 
 app.get("/", async function (req, res) {

@@ -66,11 +66,16 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="javascript/upload.js"></script>
   <script>
-    socket.on('newdata', function (d) {
+    socket.on('newdata', (d) => {
       // Do something with the data
       console.log(d);
       $("#aeneas-feed").prepend(d);
-    })
+    });
+
+    socket.on('refresh', () => {
+      $("#aeneas-feed").prepend("Refreshing interface, please wait.");
+      setTimeout(() => {  location.reload(); }, 2000);
+    });
   </script>
 </body>
 

@@ -65,4 +65,3 @@ if __name__ == "__main__":
         sys.stdout.flush()
     if jobDone:
         shutil.make_archive("./public/output/{}".format(bookname), 'zip', "./public/output/{}".format(bookname))
-        print("Done")
