@@ -21,8 +21,7 @@
                   </span>
                 </span>
                 <span class="file-name has-text-centered">
-                  You can also drag and drop!
-                  <!-- TODO in the future -->
+                  Required Files: mp3, book, ncc
                 </span>
               </label>
             </div>
@@ -54,7 +53,7 @@
           </div>
           <div class="level-right">
             <div class="level-item">
-              <p><%= new Date(zip_files[i].date).toLocaleString() %></p>
+              <p><%= new Date(zip_files[i].date).toLocaleString('en-GB') %></p>
             </div>
           </div>
         </nav>
@@ -67,8 +66,7 @@
   <script src="javascript/upload.js"></script>
   <script>
     socket.on('newdata', (d) => {
-      // Do something with the data
-      console.log(d);
+      //console.log(d);
       $("#aeneas-feed").prepend(d);
     });
 
