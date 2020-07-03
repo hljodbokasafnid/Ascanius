@@ -38,7 +38,7 @@ fileInput.onchange = () => {
 
             if (percentComplete === 100) {
               description.textContent = "Aeneas Processing.."
-              console.log("upload completed, " + percentComplete + "%");
+              //console.log("upload completed, " + percentComplete + "%");
               // Let server know that its uploaded and that the client expects data
               socket.emit('uploaded', bookname);
               $("#aeneas-feed").show();

@@ -2,6 +2,7 @@ from aeneas.executetask import ExecuteTask
 from aeneas.task import Task
 from os import listdir
 from os.path import isfile, join
+from datetime import datetime
 from scripts.clean import clean
 from scripts.segment import segment
 from scripts.prefix import get_smil_prefix
@@ -30,7 +31,8 @@ if __name__ == "__main__":
         segments = [f for f in listdir("./public/uploads/{}/segments/".format(bookname)) if isfile(join("./public/uploads/{}/segments/".format(bookname), f)) and f.endswith(".html")]
 
         # There needs to be the same number of mp3 files as there are segment files. 1 to 1 ratio!
-        print("mp3 files: {}, segments: {}".format(len(mp3files), len(segments)))
+        print("{} - Number of mp3 files: {}".format(datetime.now().time().strftime("%H:%M:%S"), len(mp3files)))
+        print("{} - Number of segments: {}".format(datetime.now().time().strftime("%H:%M:%S"), len(segments)))
         sys.stdout.flush()
         
         segmentation_correct = len(mp3files) == len(segments)
@@ -53,7 +55,7 @@ if __name__ == "__main__":
                 task.sync_map_file_path_absolute = u"./public/output/{}/{}{}.smil".format(bookname, smil_prefix, str(i+1).zfill(4))
 
                 # stdout.flush forces the progress print to be relayed to the server in real time
-                print("{}/{}".format(i+1, len(mp3files)))
+                print("{} - {}/{}".format(datetime.now().time().strftime("%H:%M:%S"), i+1, len(mp3files)))
                 sys.stdout.flush()
 
                 # Execute Task to output path
