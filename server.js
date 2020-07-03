@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
+const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const serveIndex = require("serve-index");
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.set("view-engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads/", serveIndex(__dirname + "/public/uploads/"));
+app.use(favicon("./public/images/favicon.ico"));
 
 app.post('/upload/:folder', async function (req, res) {
     // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
@@ -41,7 +43,7 @@ app.post('/upload/:folder', async function (req, res) {
         if (err) {
             return res.end("Error uploading file.");
         }
-        return await aeneas.call_aeneas(req, res, book_name);
+        //return await aeneas.call_aeneas(req, res, book_name);
     });
 
     // reload the webpage when the aeneas script is done working on the smil files
@@ -53,6 +55,10 @@ app.post('/upload/:folder', async function (req, res) {
 
 app.get("/", async function (req, res) {
     res.render("index.ejs", { zip_files: await books.get_books() });
+});
+
+app.get("/about", function (req, res) {
+    res.render("about.ejs");
 });
 
 module.exports = app;

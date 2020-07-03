@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html class="has-navbar-fixed-top">
 <%- include("partials/_head.ejs")%>
 
 <body>
+  <%- include("partials/_navbar.ejs")%>
   <section class="hero is-halfheight">
     <div class="hero-body">
       <div class="container">
@@ -27,7 +28,10 @@
             </div>
             <div class="columns pt-5 is-centered">
               <div class="column is-half">
-                <progress class="progress progress-bar is-primary is-medium" value="0" max="100">0%</progress>
+                <progress class="progress progress-bar is-primary is-medium" value="0" max="100"
+                  style="display: none;">0%</progress>
+                <textarea id="aeneas-feed" class="textarea is-large is-primary has-fixed-size" style="display: none;"
+                  readonly></textarea>
               </div>
             </div>
             <!-- upload.js automatically submits the form when files input changes -->
@@ -59,14 +63,13 @@
         <%}%>
     </div>
   </section>
-  <script src="javascript/upload.js"></script>
-    
   <script src="/socket.io/socket.io.js"></script>
+  <script src="javascript/upload.js"></script>
   <script>
-    var socket = io();
-    socket.on('newdata', function(d){
+    socket.on('newdata', function (d) {
       // Do something with the data
       console.log(d);
+      $("#aeneas-feed").prepend(d);
     })
   </script>
 </body>
