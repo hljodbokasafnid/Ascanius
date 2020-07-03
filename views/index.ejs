@@ -71,7 +71,6 @@
     });
 
     socket.on('refresh', () => {
-      $("#aeneas-feed").prepend("Refreshing interface, please wait.");
       setTimeout(() => {  location.reload(); }, 2000);
     });
   </script>

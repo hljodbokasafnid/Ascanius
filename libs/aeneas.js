@@ -9,20 +9,19 @@ exports = module.exports = function (io) {
 
             process.stdout.on('data', function (data) {
                 // Receive progress from aeneas script
-                // console.log(new Buffer(data, 'utf-8').toString());
-                io.emit('newdata', new Buffer(data, 'utf-8').toString());
+                // Refresh the page when the process is done and no error was raised
+                // process.on exit couldn't differientiate between a clean exit and a forced exit
+                if (new Buffer(data, 'utf-8').toString() == 'Done\n') {
+                    io.emit('newdata', "Refreshing.. Please Wait\n");
+                    io.emit('refresh');
+                } else {
+                    io.emit('newdata', new Buffer(data, 'utf-8').toString());
+                }
             });
 
             process.stderr.on('data', function (data) {
-                // responseData += 'err: ' + data.toString();
-                // console.log(new Buffer(data, 'utf-8').toString());
-                // Errors also get relayed, in case of crashes.
+                // Errors also get relayed, in case of crashes. Also no refresh.
                 io.emit('newdata', new Buffer(data, 'utf-8').toString());
-            });
-
-            process.on('exit', function () {
-                // Call the client to refresh the website
-                io.emit('refresh');
             });
         });
     });
