@@ -72,5 +72,5 @@ if __name__ == "__main__":
             print("Done")
     except:
         # Print the error message and re-raise
-        print("Error: The number of segmentation files and mp3 files does not match.\nPlease fix and try again.")
+        print("Error: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         raise

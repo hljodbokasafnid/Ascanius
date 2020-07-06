@@ -16,7 +16,7 @@
                   <span class="file-icon">
                     <i class="fas fa-upload"></i>
                   </span>
-                  <span class="file-label">
+                  <span id="file-label-span" class="file-label">
                     Upload files here...
                   </span>
                 </span>
@@ -64,16 +64,6 @@
   </section>
   <script src="/socket.io/socket.io.js"></script>
   <script src="javascript/upload.js"></script>
-  <script>
-    socket.on('newdata', (d) => {
-      //console.log(d);
-      $("#aeneas-feed").prepend(d);
-    });
-
-    socket.on('refresh', () => {
-      setTimeout(() => {  location.reload(); }, 2000);
-    });
-  </script>
 </body>
 
 </html>

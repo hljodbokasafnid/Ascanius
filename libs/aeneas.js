@@ -23,6 +23,7 @@ exports = module.exports = function (io) {
             process.stderr.on('data', function (data) {
                 // Errors also get relayed, in case of crashes. Also no refresh.
                 io.emit('newdata', new Buffer(data, 'utf-8').toString());
+                io.emit('error');
             });
         });
     });
