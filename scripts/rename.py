@@ -13,6 +13,6 @@ smil_prefix = sys.argv[2]
 smilfiles = [f for f in listdir("././public/output/{}/".format(bookname)) if isfile(join("././public/output/{}/".format(bookname), f)) and f.endswith(".smil")]
 
 for i in range(len(smilfiles)):
-    rename("././public/output/{}/".format(bookname) + smilfiles[i], "././public/output/{}/".format(bookname) + smil_prefix + str(i+1).zfill(4) + ".smil")
+    rename("././public/output/{}/".format(bookname) + smilfiles[i], "././public/output/{}/".format(bookname) + smil_prefix + str(i+1).zfill(3) + ".smil")
 
 print("All smil files found in", bookname, "folder have been renamed to", smil_prefix + "XXXX.smil format")

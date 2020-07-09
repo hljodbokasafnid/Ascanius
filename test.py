@@ -12,6 +12,12 @@ def get_smil_prefix(bookname):
 
     # Gets the id from the first h1 it finds in the ncc file
     # returns the prefix which is the first 4 letters
-    prefix = soup.find("h1")['id'][:4]
+    prefix = soup.find("a")['href']
+    prefix = prefix.split(".")[0]
 
-    return prefix
+    # If the ncc file comes from Hindenburg the ncc file expects the files to be named sXXX.smil
+    # If the ncc file comes from Publisher the ncc file expects the files to be named [a-z]{4}[0-9]{4}.smil
+    if prefix[0] == "s":
+        return ("s", 3)
+    else:
+        return (prefix[:4], 4)

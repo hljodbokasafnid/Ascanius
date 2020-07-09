@@ -58,6 +58,7 @@ fileInput.onchange = () => {
 
 socket.on('newdata', (d) => {
   //console.log(d);
+  $("#aeneas-feed").show();
   $("#aeneas-feed").prepend(d);
 });
 

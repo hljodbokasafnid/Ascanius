@@ -16,7 +16,7 @@ def clean(bookname):
     def has_id_or_not(css_id):
         return css_id is None or bool(re.compile("h[0-9]_[0-9]|hix[0-9]+"))
 
-    h = soup.find_all(re.compile("span|h1|h2|h3|h4|h5|img"), id=has_id_or_not, class_=is_sentence_or_h1)
+    h = soup.find_all(re.compile("span|h1|h2|h3|h4|h5|img"), id=has_id_or_not, class_=is_sentence_or_h1, lang=None, style=None)
 
     with open("././public/uploads/{}/{}.html".format(bookname, bookname), "w", encoding="utf8") as f:
         for i in h:
