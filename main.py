@@ -62,16 +62,19 @@ if __name__ == "__main__":
                 # Execute Task to output path
                 ExecuteTask(task).execute()         
                 task.output_sync_map_file()
-            
             jobDone = True
         else:
             # Raise the exception if segmented files dont match mp3 files (equal number of files)
             raise Exception()
         if jobDone:
             shutil.make_archive("./public/output/{}".format(bookname), 'zip', "./public/output/{}".format(bookname))
-            # This "Done" print statement is used by the server to detect when the program finishes running.
+            # This "Done" print statement is used by the server to detect when the program finishes running. (Websocket is listening for it)
             print("Done")
     except:
         # Print the error message and re-raise
         print("Error: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         raise
+    # Delete output/bookname/ folder and files
+    shutil.rmtree("./public/output/{}".format(bookname))
+    # Delete uploads/bookname/ folder and files
+    shutil.rmtree("./public/uploads/{}".format(bookname))
