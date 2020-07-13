@@ -54,8 +54,8 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 ## Usage
 
 - Start the server with npm start
-- Upload mp3 files with the html file
-- Make sure that each mp3 file correspondes to a header (h1, h2, etc.) in the file
+- Upload mp3 files, ncc.html and the book.html to the server
+- Make sure that each mp3 file correspondes to a header (h1, h2, etc.) in the book file
 - Wait for the script to finish creating the smil files
 - Download zip file containing smil files
 - Unzip the contents into a folder containing ncc.html, bookname.html, mp3 files and any other necessary files (/images, style.css)
