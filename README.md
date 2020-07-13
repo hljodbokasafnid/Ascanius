@@ -65,4 +65,4 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 
 ## License
 
-TBD
+GNU General Public License v3.0
