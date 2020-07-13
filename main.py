@@ -74,7 +74,7 @@ if __name__ == "__main__":
         # Print the error message and re-raise
         print("Error: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         raise
-    # Delete output/bookname/ folder and files
+    # Delete output/bookname/ folder and files when aeneas is done processing 
     shutil.rmtree("./public/output/{}".format(bookname))
-    # Delete uploads/bookname/ folder and files
+    # Delete uploads/bookname/ folder and files when aeneas is done processing
     shutil.rmtree("./public/uploads/{}".format(bookname))
