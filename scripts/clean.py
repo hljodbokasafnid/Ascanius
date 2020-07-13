@@ -7,9 +7,6 @@ def clean(bookname):
 
     soup = BeautifulSoup(html_doc, 'html.parser')
 
-    # jrrg_[0-9]+|hix[0-9]+
-    # swol_[0-9]+|hix[0-9]+
-
     def is_sentence_or_h1(css_class):
         return css_class is None or css_class == "sentence" or css_class == "title" or css_class == "page-normal"
     

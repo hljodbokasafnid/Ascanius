@@ -8,7 +8,9 @@ const fs = require("fs");
 const serveIndex = require("serve-index");
 const multer = require("multer");
 
+// Handles getting the smil zip files ready for the client
 const books = require("./libs/books");
+// Uses websocket.io to relay the output from the python aeneas (main.py) to the client
 const aeneas = require("./libs/aeneas");
 
 app.use(bodyParser.json());

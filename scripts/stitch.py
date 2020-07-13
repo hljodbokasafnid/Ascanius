@@ -2,6 +2,7 @@ from pydub import AudioSegment
 from os import listdir
 from os.path import isfile, join
 
+# Redundant code, may be deleted later
 # Was used for testing purposes
 # Having 1 large audio file and 1 full-length html text does not work well with Aeneas
 # Keeping this code for now if needed later for further testing

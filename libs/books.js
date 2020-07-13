@@ -8,7 +8,7 @@ function get_books() {
         zip_files = [];
         // Joining path of directory 
         const directoryPath = path.join('public', 'output');
-        // Passsing directoryPath and callback function
+        // Passing directoryPath and callback function
         fs.readdir(directoryPath, function (err, files) {
             // Handling error
             if (err) {
@@ -23,7 +23,7 @@ function get_books() {
             });
             // Temporary print statement
             console.log(zip_files);
-            // Return Zip Files Names / Ready Books
+            // Return Zip Files Names / Ready Books (sorted by date)
             resolve(zip_files.sort((a, b) => b.date - a.date));
         });
     });

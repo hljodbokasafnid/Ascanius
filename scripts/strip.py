@@ -1,6 +1,7 @@
 from io import StringIO
 from html.parser import HTMLParser
 
+# Redundant code, may be deleted later
 # Used for early testing, to create plain/subtitles text files for aeneas
 # Ultimately did not work as well as segmenting unparsed html code
 # Keeping this code for now if needed later for further testing
