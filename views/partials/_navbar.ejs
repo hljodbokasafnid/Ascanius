@@ -5,7 +5,13 @@
       </a>
     </div>
     <div class="navbar-end">
-      <a class="navbar-item has-background-primary has-text-white" href="/about">
+      <a class="navbar-item <% if (active == 'smil') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white" href="/">
+        Smil
+      </a>
+      <a class="navbar-item <% if (active == 'convert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white" href="/convert">
+        Convert
+      </a>
+      <a class="navbar-item <% if (active == 'about') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white" href="/about">
         About
       </a>
       <div class="navbar-item pl-6"></div>

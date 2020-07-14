@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<%- include("partials/_head.ejs")%>
+
+<body>
+  <%- include("partials/_navbar.ejs")%>
+  <section class="hero is-halfheight">
+    <div class="hero-body">
+      <div class="container">
+        <div class="field">
+          <h1 class="title has-text-centered pb-3">Convert Daisy2.02 to epub3</h1>
+        </div>
+        <div class="field">
+          <form id="upload-form" action="/upload_convert" method="POST" enctype="multipart/form-data">
+            <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
+              <label class="file-label">
+                <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory directory>
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span id="file-label-span" class="file-label">
+                    Upload files here...
+                  </span>
+                </span>
+                <span class="file-name has-text-centered">
+                  All files inside Daisy book folder
+                </span>
+              </label>
+            </div>
+            <div class="columns pt-5 is-centered">
+              <div class="column is-half">
+                <progress class="progress progress-bar is-primary is-medium" value="0" max="100"
+                  style="display: none;">0%</progress>
+                <textarea id="aeneas-feed" class="textarea is-large is-primary has-fixed-size" style="display: none;"
+                  readonly></textarea>
+              </div>
+            </div>
+            <!-- upload.js automatically submits the form when files input changes -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <% if (epub_files.length != 0) { %>
+      <% for(var i = 0; i < epub_files.length; i++) { %>
+      <a href="output/<%= epub_files[i].filename %>" class="box has-background-primary has-text-white" target="_blank">
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
+            <div class="level-item">
+              <p><%= epub_files[i].filename %></p>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <p><%= new Date(epub_files[i].date).toLocaleString('en-GB') %></p>
+            </div>
+          </div>
+        </nav>
+      </a>
+      <%}%>
+        <%}%>
+    </div>
+  </section>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="javascript/upload_convert.js"></script>
+</body>
+
+</html>
