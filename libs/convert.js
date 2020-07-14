@@ -31,7 +31,7 @@ exports = module.exports = function (io) {
           // Clean up uploads folder for reupload and save space
           rimraf.sync(path.join(__dirname, '../public', 'uploads', book_name));
         } else {
-          io.emit('newdata', new Buffer(data, 'utf-8').toString());
+          io.emit('newdata', new Date().toLocaleString('en-GB') + ": \n" + new Buffer(data, 'utf-8').toString() + "\n");
         }
       });
     });

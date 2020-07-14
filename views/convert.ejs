@@ -14,7 +14,8 @@
           <form id="upload-form" action="/upload_convert" method="POST" enctype="multipart/form-data">
             <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
               <label class="file-label">
-                <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory directory>
+                <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory
+                  directory>
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-upload"></i>
@@ -32,10 +33,10 @@
               <div class="column is-half">
                 <progress class="progress progress-bar is-primary is-medium" value="0" max="100"
                   style="display: none;">0%</progress>
-                <textarea id="aeneas-feed" class="textarea is-large is-primary has-fixed-size" style="display: none;"
-                  readonly></textarea>
               </div>
             </div>
+            <textarea id="aeneas-feed" class="textarea is-large is-primary has-fixed-size" style="display: none;"
+              readonly></textarea>
             <!-- upload.js automatically submits the form when files input changes -->
           </form>
         </div>
