@@ -57,6 +57,7 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 - Make sure to have [nodejs](https://nodejs.org/en/download/) installed
 - Run "npm install" to install all the required dependencies
 - Start the server with "npm start"
+- Server should now be running on http://localhost:5000
 
 # Syncing Audio
 - Upload mp3 files, ncc.html and the book.html to the server
