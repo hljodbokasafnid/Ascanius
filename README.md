@@ -53,13 +53,13 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 
 ## Usage
 
-# Run
+### Run
 - Make sure to have [nodejs](https://nodejs.org/en/download/) installed
 - Run "npm install" to install all the required dependencies
 - Start the server with "npm start"
 - Server should now be running on http://localhost:5000
 
-# Syncing Audio
+### Syncing Audio
 - Upload mp3 files, ncc.html and the book.html to the server
 - Make sure that each mp3 file correspondes to a header (h1, h2, etc.) in the book file
 - Wait for the script to finish creating the smil files
@@ -69,7 +69,7 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 - Export epub/epub3/daisy from Hindenburg
 - You should now have a working full-text book
 
-# Converting from Daisy 2.02 to Epub 3
+### Converting from Daisy 2.02 to Epub 3
 - Upload the folder containing the full daisy 2.02 ebook
 - Validate the ebook if any errors occur
 - Wait for the Daisy Pipeline to process the book
