@@ -73,7 +73,7 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 - Upload the folder containing the full daisy 2.02 ebook
 - Validate the ebook if any errors occur
 - Wait for the Daisy Pipeline to process the book
-- Download the epub file and open up in a functioning ebook reader that supports Media Overlay (recommend [Thorium Reader Alpha](https://github.com/edrlab/thorium-reader/releases/tag/latest-windows))
+- Download the epub file and open up in a ebook reader that supports Media Overlay (recommend [Thorium Reader Alpha](https://github.com/edrlab/thorium-reader/releases/tag/latest-windows))
 
 ## License
 
