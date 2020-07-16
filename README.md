@@ -54,7 +54,7 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 ## Usage
 
 ### Run
-- Make sure to have [nodejs](https://nodejs.org/en/download/) installed
+- Make sure to have [nodejs](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) installed
 - Run "npm install" to install all the required dependencies
 - Start the server with "npm start"
 - Server should now be running on http://localhost:5000
