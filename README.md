@@ -67,6 +67,7 @@ Before installing the Daisy Pipeline 2, install Java version 14 from https://www
 Daisy Pipeline 2 requires at least version 11 of Java, but there were some issues with using version 11 in early tests.
 
 Follow the installation guide found at https://daisy.github.io/pipeline/Download.html
+
 Make sure the install package includes the CLI
 
 If the Pipeline installer prompts you to install java 11 through them press "No".
