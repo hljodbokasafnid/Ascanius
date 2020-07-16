@@ -3,6 +3,7 @@
 Projects goal is to automate the creation of full-text (sound and text) ebooks in epub/epub3/daisy format.
 
 # Aeneas
+
 [Aeneas](https://www.readbeyond.it/aeneas/) is used to sync the audio and html (text) files automatically.
 
 ## Requirements & Setup
@@ -55,9 +56,22 @@ Use the following commands:
 Rerun "python -m aeneas.diagnostics" to see whether everything is installed correctly.
 
 # Daisy Pipeline 2
+
 [Daisy Pipeline 2](https://daisy.github.io/pipeline/Download.html) has numerous scripts available to the user.
 Their GUI program is capable of running all these scripts though we are using the CLI to automate the process even further.
+
 ## Requirements & Setup
+
+Before installing the Daisy Pipeline 2, install Java version 14 from https://www.oracle.com/java/technologies/javase-jdk14-downloads.html
+
+Daisy Pipeline 2 requires at least version 11 of Java, but there were some issues with using version 11 in early tests.
+
+Follow the installation guide found at https://daisy.github.io/pipeline/Download.html
+Make sure the install package includes the CLI
+
+If the Pipeline installer prompts you to install java 11 through them press "No".
+
+Open up a command line and use the command "dp2.exe help" to see if the webserver and everything is working correctly.
 
 ## Contributing
 
@@ -84,7 +98,7 @@ If you wish to contribute please contact HBS directly http://www.hbs.is
 ### Converting from Daisy 2.02 to Epub 3
 - Upload the folder containing the full daisy 2.02 ebook
 - Validate the ebook if any errors occur
-- Wait for the Daisy Pipeline to process the book
+- Wait for the Daisy Pipeline 2 to process the book
 - Download the epub file and open up in a ebook reader that supports Media Overlay (recommend [Thorium Reader Alpha](https://github.com/edrlab/thorium-reader/releases/tag/latest-windows))
 
 ## License
