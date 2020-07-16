@@ -2,9 +2,12 @@
 
 Projects goal is to automate the creation of full-text (sound and text) ebooks in epub/epub3/daisy format.
 
+# Aeneas
+[Aeneas](https://www.readbeyond.it/aeneas/) is used to sync the audio and html (text) files automatically.
+
 ## Requirements & Setup
 
-# Windows
+### Windows
 
 - Python 3.7 https://www.python.org/downloads/release/python-370/
 
@@ -27,7 +30,7 @@ If issues arise with CEW then go into System Properties -> Environment Variables
 
 Add a new variable under System Variables named "AENEAS_WITH_CEW" and set it to "False"
 
-# Linux / Ubuntu
+### Linux / Ubuntu
 
 Follow the installation guide found at https://github.com/readbeyond/aeneas/blob/master/wiki/INSTALL.md
 
@@ -40,12 +43,21 @@ Use the following commands:
 - $ wget https://raw.githubusercontent.com/readbeyond/aeneas/master/install_dependencies.sh
 - $ bash install_dependencies.sh
 
-If issues arrive try using the manual procedure 3.
+Try running "python -m aeneas.diagnostics" to see whether everything is installed correctly.
+
+If issues arrive try also using the manual procedure 3.
 
 Use the following commands:
 
 - $ sudo pip install numpy
 - $ sudo pip install aeneas
+
+Rerun "python -m aeneas.diagnostics" to see whether everything is installed correctly.
+
+# Daisy Pipeline 2
+[Daisy Pipeline 2](https://daisy.github.io/pipeline/Download.html) has numerous scripts available to the user.
+Their GUI program is capable of running all these scripts though we are using the CLI to automate the process even further.
+## Requirements & Setup
 
 ## Contributing
 
