@@ -11,8 +11,6 @@ const multer = require("multer");
 
 // Handles getting the smil zip files ready for the client
 const books = require("./libs/books");
-// Handles getting the epub files ready for the client
-const efiles = require("./libs/epub_files");
 // Uses websocket.io to relay the output from the python aeneas (main.py) to the client
 const aeneas = require("./libs/aeneas");
 // Uses websocket.io to relay the output from the python aeneas (main.py) to the client
@@ -93,11 +91,11 @@ app.post('/upload_convert/:folder', async function (req, res) {
 });
 
 app.get("/", async function (req, res) {
-  res.render("index.ejs", { zip_files: await books.get_books(), active: "smil" });
+  res.render("index.ejs", { zip_files: await books.get_books("zip"), active: "smil" });
 });
 
 app.get("/convert", async function (req, res) {
-  res.render("convert.ejs", { epub_files: await efiles.get_epub_files(), active: "convert" });
+  res.render("convert.ejs", { epub_files: await books.get_books("epub"), active: "convert" });
 });
 
 app.get("/about", function (req, res) {
