@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-function get_books(file_type) {
+function getBooks(file_type) {
     // Returns a list of books as zip files sorted by upload/creation date
     return new Promise(resolve => {
         zip_files = [];
@@ -30,5 +30,5 @@ function get_books(file_type) {
 }
 
 module.exports = {
-    get_books
+    getBooks
 }

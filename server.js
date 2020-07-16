@@ -91,11 +91,11 @@ app.post('/upload_convert/:folder', async function (req, res) {
 });
 
 app.get("/", async function (req, res) {
-  res.render("index.ejs", { zip_files: await books.get_books("zip"), active: "smil" });
+  res.render("index.ejs", { zip_files: await books.getBooks("zip"), active: "smil" });
 });
 
 app.get("/convert", async function (req, res) {
-  res.render("convert.ejs", { epub_files: await books.get_books("epub"), active: "convert" });
+  res.render("convert.ejs", { epub_files: await books.getBooks("epub"), active: "convert" });
 });
 
 app.get("/about", function (req, res) {
