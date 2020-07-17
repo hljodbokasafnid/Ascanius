@@ -6,9 +6,9 @@ const io = require('socket.io')(server);
 const aeneas = require('./libs/aeneas')(io)
 const convert = require('./libs/convert')(io)
 
-// Automatically create a version number based on repository
+// Fetch version number from package.json (sha ending optional is based on repository commit)
 var getVersion = require('git-repo-version');
-var version = getVersion({ shaLength: 0, includeDate: true });
+var version = getVersion({ shaLength: 2, includeDate: true });
 var date = new Date(version.split(" ")[1]).toLocaleString('en-GB');
 console.log("Running v" + version.split(" ")[0], "committed", date);
 
