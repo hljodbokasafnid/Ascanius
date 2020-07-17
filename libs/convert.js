@@ -28,7 +28,7 @@ exports = module.exports = function (io) {
           io.to(user_id).emit('refresh');
           // Clean up uploads folder for reupload and save space
           rimraf.sync(path.join(__dirname, '../public', 'uploads', book_name));
-        } else if (new Buffer(data, 'utf-u').toString().includes("Error")) {
+        } else if (new Buffer(data, 'utf-8').toString().includes("ERROR")) {
           // stderr.on does not work with the dp2.exe 
           // so if the data sent by stdout is includes error we can conclude that something didnt work
           io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
