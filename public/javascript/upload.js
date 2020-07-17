@@ -9,13 +9,16 @@ fileInput.onchange = () => {
     $(".progress-bar").show();
     description.textContent = "Uploading Files..";
     var formData = new FormData();
+    var bookname = "NULL";
+    // Relay the folder name
+    var foldername = fileInput.files[0]['webkitRelativePath'].split("/")[0].split(" ").join("_");
+    var uploadpath = '/upload_convert/' + foldername;
+    document.getElementById('upload-form').action = uploadpath;
     for (var i = 0; i < fileInput.files.length; i++) {
       var filename = fileInput.files[i].name;
       if (filename.includes("html") && filename !== "ncc.html") {
-        // Put the html file name as the uploads folder name, forwarded using the form
+        // Relay the book name
         var bookname = fileInput.files[i].name.split(".")[0];
-        uploadpath = '/upload/' + bookname;
-        document.getElementById('upload-form').action = uploadpath;
       }
       formData.append('uploads', fileInput.files[i]);
     }
@@ -43,7 +46,7 @@ fileInput.onchange = () => {
               $("#file-label-span").text("Upload Complete");
               //console.log("upload completed, " + percentComplete + "%");
               // Let server know that its uploaded and that the client expects data
-              socket.emit('uploaded', bookname);
+              socket.emit('uploaded', foldername, bookname);
               $("#aeneas-feed").show();
             }
           }

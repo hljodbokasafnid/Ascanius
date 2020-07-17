@@ -1,8 +1,8 @@
 import re
 from bs4 import BeautifulSoup
 
-def clean(bookname):
-    with open("././public/uploads/{}/{}.html".format(bookname, bookname), "r", encoding="utf8") as f:
+def clean(foldername, bookname):
+    with open("././public/uploads/{}/{}.html".format(foldername, bookname), "r", encoding="utf8") as f:
         html_doc = f.read()
 
     soup = BeautifulSoup(html_doc, 'html.parser')
@@ -17,7 +17,7 @@ def clean(bookname):
     # images also taken in, though will most likely not be highlighted in the end product.
     h = soup.find_all(re.compile("span|h1|h2|h3|h4|h5|img"), id=has_id_or_not, class_=is_sentence_or_h1, lang=None, style=None)
 
-    with open("././public/uploads/{}/{}.html".format(bookname, bookname), "w", encoding="utf8") as f:
+    with open("././public/uploads/{}/{}.html".format(foldername, bookname + "_clean"), "w", encoding="utf8") as f:
         for i in h:
             # Some documents may have h2 or even h3,h4,h5?h6??
             # for simplicity sake we just change them to h1 for the segment script

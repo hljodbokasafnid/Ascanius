@@ -31,8 +31,14 @@ app.post('/upload/:folder', async function (req, res) {
 
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      // Folder designated by the input files html file.
-      const dir = `./public/uploads/${book_name}/`;
+      var dir = "";
+      if (file['originalname'].split(".")[1].match(/jpg|png|jpeg|svg|gif/)) {
+        // If we have a jpg image we send it to images folder
+        dir = `./public/uploads/${book_name}/images`;
+      } else {
+        // Folder designated by the input files html file.
+        dir = `./public/uploads/${book_name}/`;
+      }
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }

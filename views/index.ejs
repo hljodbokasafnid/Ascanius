@@ -10,11 +10,13 @@
         <div class="field">
           <h1 class="title has-text-centered pb-3">Sync File Generation</h1>
         </div>
+        <!-- Refactor later into partial that where action is a parameter -->
         <div class="field">
           <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
             <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
               <label class="file-label">
-                <input class="file-input" type="file" name="uploads" accept=".html, .mp3" multiple="multiple" hidden>
+                <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory
+                  directory>
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-upload"></i>
