@@ -1,6 +1,6 @@
 # HBS-Full-Text-Automation
 
-Projects goal is to automate the creation of full-text (sound and text) ebooks in epub/epub3/daisy format.
+Project goal is to automate the creation of accessible full-text (sound and text synced) ebooks in epub3 and daisy format.
 
 # Aeneas
 
@@ -18,7 +18,7 @@ Projects goal is to automate the creation of full-text (sound and text) ebooks i
 
 - Aeneas https://github.com/sillsdev/aeneas-installer/releases
 
-Aeneas has seperate requirements that come with the aeneas-installer but can be installed seperately using pip.
+Aeneas has its own requirements that come with the aeneas-installer but can also be installed seperately using pip.
 
 - eSpeak
 - FFmpeg
@@ -72,11 +72,11 @@ Make sure the install package includes the CLI
 
 If the Pipeline installer prompts you to install java 11 through them press "No".
 
-Open up a command line and use the command "dp2.exe help" to see if the webserver and everything is working correctly.
+Open up a command line and use the command "dp2.exe help" to see if the webserver and everything else is working correctly.
 
 ## Contributing
 
-If you wish to contribute please contact HBS directly http://www.hbs.is
+If you wish to contribute please contact HBS directly at hbs@hbs.is
 
 ## Usage
 
