@@ -1,11 +1,16 @@
 const spawn = require("child_process").spawn;
 var rimraf = require("rimraf");
 const path = require("path");
+const { uuid } = require("uuidv4");
 
 exports = module.exports = function (io) {
   // Using the socket io, while connected if uploaded is called from client
   // Run the main script and emit the data to the server so we can read it client side
   io.sockets.on('connection', function (socket) {
+    // Create a unique ID for each connected "user"
+    var user_id = uuid();
+    // Create a room for each user so each user gets their emitted separate messages
+    socket.join(user_id);
     socket.on('uploaded_convert', function (book_name) {
       var book_path = './public/uploads/' + book_name;
       var output_path = './public/';
@@ -17,21 +22,21 @@ exports = module.exports = function (io) {
       process.stdout.on('data', function (data) {
         // Refresh the page when the process is done and no error was raised
         // Whenever SUCCESS is included in the data we conclude that we have finished and exit.
-        var currentTime = new Date().toLocaleTimeString('en-GB');
+        var current_time = new Date().toLocaleTimeString('en-GB');
         if (new Buffer(data, 'utf-8').toString().includes("SUCCESS")) {
-          io.emit('newdata', `${currentTime} - Refreshing.. Please Wait\n${currentTime} - Complete\n`);
-          io.emit('refresh');
+          io.to(user_id).emit('newdata', `${current_time} - Refreshing.. Please Wait\n${current_time} - Complete\n`);
+          io.to(user_id).emit('refresh');
           // Clean up uploads folder for reupload and save space
           rimraf.sync(path.join(__dirname, '../public', 'uploads', book_name));
-        } else if (new Buffer(data, 'utf-u').toString().includes("Error")) {
+        } else if (new Buffer(data, 'utf-8').toString().includes("ERROR")) {
           // stderr.on does not work with the dp2.exe 
           // so if the data sent by stdout is includes error we can conclude that something didnt work
-          io.emit('newdata', `${currentTime}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
-          io.emit('error');
+          io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
+          io.to(user_id).emit('error');
           // Clean up uploads folder for reupload and save space
           rimraf.sync(path.join(__dirname, '../public', 'uploads', book_name));
         } else {
-          io.emit('newdata', `${currentTime}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
+          io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
         }
       });
     });

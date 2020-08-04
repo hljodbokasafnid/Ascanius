@@ -12,7 +12,7 @@ import shutil
 
 if __name__ == "__main__":
     try:
-        # bookfile takes in the file location, bookname takes the name of the book.
+        # job is done whenever the for loop below has finished
         jobDone = False
         # bookname takes the name of the book.
         foldername = sys.argv[1]
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         # Combs the book for headers and sentences
         clean(foldername, bookname)
 
-        # Uses a script to segment the book
+        # Segment the book
         # Outputs the segments to a seperate folder located in ./output/bookname/
         segment(foldername, bookname)
 
@@ -35,6 +35,7 @@ if __name__ == "__main__":
         # There needs to be the same number of mp3 files as there are segment files. 1 to 1 ratio!
         print("{} - Number of mp3 files: {}".format(datetime.now().time().strftime("%H:%M:%S"), len(mp3files)))
         print("{} - Number of segments: {}".format(datetime.now().time().strftime("%H:%M:%S"), len(segments)))
+        # Clear buffer
         sys.stdout.flush()
         
         segmentation_correct = len(mp3files) == len(segments)
@@ -59,6 +60,7 @@ if __name__ == "__main__":
 
                 # stdout.flush forces the progress print to be relayed to the server in real time
                 print("{} - {}/{}".format(datetime.now().time().strftime("%H:%M:%S"), i+1, len(mp3files)))
+                # Clear buffer
                 sys.stdout.flush()
 
                 # Execute Task to output path
@@ -74,7 +76,7 @@ if __name__ == "__main__":
             print("Done")
     except:
         # Print the error message and re-raise
-        print("Error: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
+        print("ERROR: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         raise
     # Delete output/bookname/ folder and files when aeneas is done processing 
     shutil.rmtree("./public/output/{}".format(foldername))
