@@ -17,7 +17,7 @@ if __name__ == "__main__":
         # bookname takes the name of the book.
         foldername = sys.argv[1]
         bookname = sys.argv[2]
-        
+
         # Only include the mp3 files
         mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3")]
 
@@ -46,10 +46,6 @@ if __name__ == "__main__":
             # Run through each mp3 file and book segment
             for i, mp3 in enumerate(mp3files):
                 # Setup config string & absolute file path for audio/text/syncfile
-                
-                # Changed "task_adjust_boundary_nonspeech_min=1.0|task_adjust_boundary_nonspeech_string=REMOVE" from config string may be useful..
-                # TODO Catch the language of book.html and change the task_language to the appropriate language
-
                 config_string = u"task_language=isl|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref={}.html".format(mp3, bookname)
                 # Create Task
                 task = Task(config_string=config_string)
@@ -75,7 +71,6 @@ if __name__ == "__main__":
             # This "Done" print statement is used by the server to detect when the program finishes running. (Websocket is listening for it)
             print("Done")
     except:
-        # Print the error message and re-raise
         print("ERROR: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         raise
     # Delete output/bookname/ folder and files when aeneas is done processing 

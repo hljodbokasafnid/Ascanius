@@ -1,6 +1,9 @@
 const spawn = require("child_process").spawn;
 const { uuid } = require("uuidv4");
 
+const fs = require("fs-extra");
+const path = require("path");
+
 exports = module.exports = function (io) {
   // Using the socket io, while connected if uploaded is called from client
   // Run the main script and emit the data to the server so we can read it client side
@@ -9,9 +12,20 @@ exports = module.exports = function (io) {
     var user_id = uuid();
     // Create a room for each user so each user gets their emitted separate messages
     socket.join(user_id);
-    socket.on('uploaded', function (folder_name, book_name) {
-      var process = spawn('python3', ['./main.py', folder_name, book_name]);
+    socket.on('uploaded', async function (folder_name, book_name) {
+      // Copy contents to output before working on the original
+      var source = path.resolve(__dirname, "..", "public", "uploads", folder_name);
+      var destination = path.resolve(__dirname, "..", "public", "output", folder_name);
 
+      await fs.copy(source, destination, function (err) {
+        if (err){
+            console.log('An error occured while copying the folder.')
+            return console.error(err);
+        }
+        console.log('Copy completed!');
+      });
+      
+      var process = spawn('python3', ['./main.py', folder_name, book_name]);
       process.stdout.on('data', function (data) {
         // Receive progress from aeneas script
         // Refresh the page when the process is done and no error was raised
