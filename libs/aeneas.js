@@ -22,7 +22,6 @@ exports = module.exports = function (io) {
             console.log('An error occured while copying the folder.')
             return console.error(err);
         }
-        console.log('Copy completed!');
       });
       
       var process = spawn('python3', ['./main.py', folder_name, book_name]);
@@ -43,6 +42,9 @@ exports = module.exports = function (io) {
         // Errors also get relayed, in case of crashes. Also no refresh.
         io.to(user_id).emit('newdata', new Buffer(data, 'utf-8').toString());
         io.to(user_id).emit('error');
+        // Remove the files from uploads and output in case of errors (in case python couldn't delete)
+        fs.remove(source);
+        fs.remove(destination);
       });
     });
   });

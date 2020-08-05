@@ -39,6 +39,8 @@ document.getElementById('confirmDelete').onclick = function() {
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(JSON.stringify(delete_files));
 
-  // Refresh the website and list
-  window.location.reload();
+  // Wait 500 milliseconds then refresh the website
+  setTimeout(function () {
+    window.location.reload();
+  }, 500);
 }
