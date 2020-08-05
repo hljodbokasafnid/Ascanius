@@ -22,11 +22,11 @@
                     <i class="fas fa-upload"></i>
                   </span>
                   <span id="file-label-span" class="file-label">
-                    Upload files here...
+                    Upload folder...
                   </span>
                 </span>
                 <span class="file-name has-text-centered">
-                  Required Files: mp3, book, ncc
+                  Needs to contain HTML and mp3
                 </span>
               </label>
             </div>
@@ -47,28 +47,66 @@
   <section class="section">
     <div class="container">
       <% if (zip_files.length != 0) { %>
+      <div class="columns is-vcentered">
+        <div class="column">
+          <div class="buttons is-pulled-right">
+            <button class="button is-danger" id="showModal">
+              <span class="icon is-medium">
+                <i class="fas fa-trash"></i>
+              </span>
+              <span>Delete Selected Files</span>
+            </button>
+            <div class="field">
+              <input id="selectAll" type="checkbox" name="selectAll"
+                class="switch is-medium is-primary">
+              <label for="selectAll">Select All</label>
+            </div>
+          </div>
+        </div>
+      </div>
       <% for(var i = 0; i < zip_files.length; i++) { %>
-      <a href="output/<%= zip_files[i].filename %>" class="box has-background-primary has-text-white" target="_blank">
-        <nav class="level">
-          <div class="level-left">
-            <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
-            <div class="level-item">
-              <p><%= zip_files[i].filename %></p>
-            </div>
+      <div class="columns is-vcentered">
+        <div class="column is-1">
+        </div>
+        <div class="column">
+          <a href="output/<%= zip_files[i].filename %>" class="box has-background-primary has-text-white"
+            target="_blank">
+            <nav class="level">
+              <div class="level-left">
+                <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
+                <div class="level-item">
+                  <p><%= zip_files[i].filename %></p>
+                </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <p><%= new Date(zip_files[i].date).toLocaleString('en-GB') %></p>
+                </div>
+              </div>
+            </nav>
+          </a>
+        </div>
+        <div class="column is-1">
+          <div class="field">
+            <input id="<%=zip_files[i].filename %>-check" type="checkbox" name="<%=zip_files[i].filename %>"
+              class="switch is-large is-danger file-checkbox">
+            <label for="<%=zip_files[i].filename %>-check"></label>
           </div>
-          <div class="level-right">
-            <div class="level-item">
-              <p><%= new Date(zip_files[i].date).toLocaleString('en-GB') %></p>
-            </div>
-          </div>
-        </nav>
-      </a>
+        </div>
+      </div>
       <%}%>
         <%}%>
     </div>
   </section>
+  <div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <button id="confirmDelete" class="button is-danger">Confirm Deletion</button>
+    </div>
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="javascript/upload.js"></script>
+  <script src="javascript/delete_files.js"></script>
 </body>
 
 </html>

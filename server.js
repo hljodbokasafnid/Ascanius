@@ -5,7 +5,7 @@ const path = require("path");
 const public = path.join(__dirname, "public");
 const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
-const fs = require("fs");
+const fs = require("fs-extra");
 const serveIndex = require("serve-index");
 const multer = require("multer");
 
@@ -94,6 +94,23 @@ app.post('/upload_convert/:folder', async function (req, res) {
     // If upload finishes then the client will emit a socket io message.
     // Nothing more needs to be done here.
   });
+});
+
+app.post('/delete',  function (req, res) {
+  // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
+  var files = req.body;
+  console.log(files);
+  for (var file in files) {
+      try {
+        var filepath = path.join(__dirname, "public", "output", files[file]);
+        if (fs.existsSync(filepath)) {
+          // Delete File if it Exists
+          fs.remove(filepath);
+        }
+      } catch(err) {
+        console.error(err)
+      }
+  }
 });
 
 app.get("/", async function (req, res) {
