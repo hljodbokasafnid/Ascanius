@@ -1,0 +1,60 @@
+<section class="section">
+  <div class="container">
+    <% if (files.length != 0) { %>
+    <div class="columns is-vcentered">
+      <div class="column">
+        <div class="buttons is-pulled-right">
+          <button class="button is-danger" id="showModal">
+            <span class="icon is-medium">
+              <i class="fas fa-trash"></i>
+            </span>
+            <span>Delete Selected Files</span>
+          </button>
+          <div class="field">
+            <input id="selectAll" type="checkbox" name="selectAll"
+              class="switch is-medium is-primary">
+            <label for="selectAll">Select All</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% for(var i = 0; i < files.length; i++) { %>
+    <div class="columns is-vcentered">
+      <div class="column is-1">
+      </div>
+      <div class="column">
+        <a href="output/<%= files[i].filename %>" class="box has-background-primary has-text-white"
+          target="_blank">
+          <nav class="level">
+            <div class="level-left">
+              <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
+              <div class="level-item">
+                <p><%= files[i].filename %></p>
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <p><%= new Date(files[i].date).toLocaleString('en-GB') %></p>
+              </div>
+            </div>
+          </nav>
+        </a>
+      </div>
+      <div class="column is-1">
+        <div class="field">
+          <input id="<%=files[i].filename %>-check" type="checkbox" name="<%=files[i].filename %>"
+            class="switch is-large is-danger file-checkbox">
+          <label for="<%=files[i].filename %>-check"></label>
+        </div>
+      </div>
+    </div>
+    <%}%>
+      <%}%>
+  </div>
+</section>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <button id="confirmDelete" class="button is-danger">Confirm Deletion</button>
+  </div>
+</div>
