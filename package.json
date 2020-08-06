@@ -30,7 +30,7 @@
     "serve-index": "^1.9.1",
     "shelljs": "^0.8.4",
     "socketio": "^1.0.0",
-    "uuidv4": "^6.1.1"
+    "uuidv4": "^6.2.2"
   },
   "devDependencies": {
     "bulma": "^0.9.0",

@@ -9,12 +9,8 @@ const fs = require("fs-extra");
 const serveIndex = require("serve-index");
 const multer = require("multer");
 
-// Handles getting the smil zip files ready for the client
+// Handles getting the output files ready for the client
 const books = require("./libs/books");
-// Uses websocket.io to relay the output from the python aeneas (main.py) to the client
-const aeneas = require("./libs/aeneas");
-// Uses websocket.io to relay the output from the python aeneas (main.py) to the client
-const convert = require("./libs/convert");
 
 app.use(bodyParser.json());
 app.set("view-engine", "ejs");
@@ -24,19 +20,14 @@ app.use(favicon("./public/images/favicon.ico"));
 
 app.post('/upload/:folder', async function (req, res) {
   // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
-
-  const book_name = req.params['folder'];
+  // TODO: A the moment we are dumping all images into one folder because we expect just one book
+  // TODO: We need to get a list of all subfolders (books) that we got sent and send the images to their appropriate folder.
 
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      var dir = "";
-      if (file['originalname'].split(".")[1].match(/jpg|png|jpeg|svg|gif/)) {
-        // If we have a jpg image we send it to images folder
-        dir = `./public/uploads/${book_name}/images`;
-      } else {
-        // Folder designated by the input files html file.
-        dir = `./public/uploads/${book_name}/`;
-      }
+      // Folder designated by the input files html file.
+      var folderpath = file['originalname'].split('/').slice(0, -1).join('/');
+      var dir = `./public/uploads/${folderpath}/`;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
@@ -48,7 +39,7 @@ app.post('/upload/:folder', async function (req, res) {
   });
 
   // Assign multer with input file fields to upload
-  var upload = multer({ storage: storage }).fields([{ name: 'uploads' }]);
+  var upload = multer({ storage: storage, preservePath: true }).fields([{ name: 'uploads' }]);
 
   script_done = upload(req, res, async function (err) {
     if (err) {
