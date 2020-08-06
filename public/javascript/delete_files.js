@@ -6,7 +6,6 @@ if (document.querySelector('button#showModal') !== null) {
     modal.classList.add('is-active');
     html.classList.add('is-clipped');
   
-  
     modal.querySelector('.modal-background').addEventListener('click', function (e) {
       e.preventDefault();
       modal.classList.remove('is-active');

@@ -20,21 +20,20 @@ app.use(favicon("./public/images/favicon.ico"));
 
 app.post('/upload/:folder', async function (req, res) {
   // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
-  // TODO: A the moment we are dumping all images into one folder because we expect just one book
-  // TODO: We need to get a list of all subfolders (books) that we got sent and send the images to their appropriate folder.
-
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      // Folder designated by the input files html file.
-      var folderpath = file['originalname'].split('/').slice(0, -1).join('/');
-      var dir = `./public/uploads/${folderpath}/`;
+      // Get filepath from preserved Path
+      var filepath = file['originalname'].split('/').slice(0, -1).join('/');
+      var dir = `./public/uploads/${filepath}/`;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
       cb(null, dir);
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname);
+      // Get the original name (removing the preserved path in front)
+      var originalname = file.originalname.split('/').slice(-1).toString();
+      cb(null, originalname);
     }
   });
 
@@ -53,7 +52,6 @@ app.post('/upload/:folder', async function (req, res) {
 app.post('/delete',  function (req, res) {
   // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
   var files = req.body;
-  console.log(files);
   for (var file in files) {
       try {
         var filepath = path.join(__dirname, "public", "output", files[file]);
