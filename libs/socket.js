@@ -51,12 +51,18 @@ exports = module.exports = function (io) {
     });
 
     // Daisy Pipeline Converting Daisy 2.02 to Epub 3
-    socket.on('uploaded_convert', function (book_name) {
-      var book_path = './public/uploads/' + book_name;
+    socket.on('uploaded_convert', async function (folder_name, book_name) {
+      var book_path = './public/uploads/' + folder_name;
       var output_path = './public/';
 
+      var preprocess = spawn('python3', ['./scripts/preprocess.py', folder_name, book_name]);
+      preprocess.stdout.on('data', function(data) {
+        // TODO: Relay the preprocess "process" to the client
+        console.log(new Buffer(data, 'utf-8').toString());
+      });
+
       // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-      var process = spawn('dp2.exe', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', book_name + '.epub', '-n', book_name]);
+      var process = spawn('dp2.exe', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
       //console.log(process['spawnargs']);
 
       process.stdout.on('data', function (data) {
@@ -67,14 +73,14 @@ exports = module.exports = function (io) {
           io.to(user_id).emit('newdata', `${current_time} - Refreshing.. Please Wait\n${current_time} - Complete\n`);
           io.to(user_id).emit('refresh');
           // Clean up uploads folder for reupload and save space
-          fs.remove(path.join(__dirname, '../public', 'uploads', book_name))
-        } else if (new Buffer(data, 'utf-8').toString().includes("ERROR")) {
+          fs.remove(path.join(__dirname, '../public', 'uploads', folder_name))
+        } else if (new Buffer(data, 'utf-8').toString().toLowerCase().includes("error")) {
           // stderr.on does not work with the dp2.exe 
           // so if the data sent by stdout is includes error we can conclude that something didnt work
           io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
           io.to(user_id).emit('error');
           // Clean up uploads folder for reupload and save space
-          fs.remove(path.join(__dirname, '../public', 'uploads', book_name))
+          fs.remove(path.join(__dirname, '../public', 'uploads', folder_name))
         } else {
           io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
         }

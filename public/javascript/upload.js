@@ -22,12 +22,10 @@ fileInput.onchange = () => {
     document.getElementById('upload-form').action = uploadpath;
     for (var i = 0; i < fileInput.files.length; i++) {
       // Check whether we are uploading for aeneas or dp2
-      if (current === "/") {
-        var filename = fileInput.files[i].name;
-        if (filename.includes("html") && filename !== "ncc.html") {
-          // Relay the book name if aeneas
-          var bookname = fileInput.files[i].name.split(".")[0];
-        }
+      var filename = fileInput.files[i].name;
+      if (filename.includes("html") && filename !== "ncc.html") {
+        // Relay the book name if aeneas
+        var bookname = fileInput.files[i].name.split(".")[0];
       }
       formData.append('uploads', fileInput.files[i]);
     }
@@ -37,10 +35,10 @@ fileInput.onchange = () => {
       data: formData,
       processData: false,
       contentType: false,
-      xhr: function() {
+      xhr: function () {
         var xhr = new XMLHttpRequest();
 
-        xhr.upload.addEventListener("progress", function(evt) {
+        xhr.upload.addEventListener("progress", function (evt) {
           if (evt.lengthComputable) {
             var percentComplete = evt.loaded / evt.total;
             $(".file-input").attr("disabled", true);
@@ -63,7 +61,7 @@ fileInput.onchange = () => {
               if (current === "/") {
                 socket.emit('uploaded', foldername, bookname);
               } else {
-                socket.emit('uploaded_convert', foldername);
+                socket.emit('uploaded_convert', foldername, bookname);
               }
               $("#process-feed").show();
             }
@@ -72,7 +70,7 @@ fileInput.onchange = () => {
         return xhr;
       }
     });
-    }
+  }
 }
 
 socket.on('newdata', (d) => {
@@ -83,7 +81,7 @@ socket.on('newdata', (d) => {
 
 socket.on('refresh', () => {
   description.textContent = "Processing Complete, Refreshing..";
-  setTimeout(() => {  location.reload(); }, 2000);
+  setTimeout(() => { location.reload(); }, 2000);
 });
 
 socket.on('error', () => {
