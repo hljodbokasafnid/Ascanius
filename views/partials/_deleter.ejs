@@ -1,6 +1,6 @@
+<% if (files.length != 0) { %>
 <section class="section">
   <div class="container">
-    <% if (files.length != 0) { %>
     <div class="columns is-vcentered">
       <div class="column">
         <div class="buttons is-pulled-right">
@@ -11,8 +11,7 @@
             <span>Delete Selected Files</span>
           </button>
           <div class="field">
-            <input id="selectAll" type="checkbox" name="selectAll"
-              class="switch is-medium is-primary">
+            <input id="selectAll" type="checkbox" name="selectAll" class="switch is-medium is-primary">
             <label for="selectAll">Select All</label>
           </div>
         </div>
@@ -23,8 +22,7 @@
       <div class="column is-1">
       </div>
       <div class="column">
-        <a href="output/<%= files[i].filename %>" class="box has-background-primary has-text-white"
-          target="_blank">
+        <a href="output/<%= files[i].filename %>" class="box has-background-primary has-text-white" target="_blank">
           <nav class="level">
             <div class="level-left">
               <div class="level-item"><i class="fa fa-download" aria-hidden="true"></i></div>
@@ -49,7 +47,6 @@
       </div>
     </div>
     <%}%>
-      <%}%>
   </div>
 </section>
 <div class="modal">
@@ -58,3 +55,4 @@
     <button id="confirmDelete" class="button is-danger">Confirm Deletion</button>
   </div>
 </div>
+<%}%>
