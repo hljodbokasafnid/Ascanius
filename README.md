@@ -10,13 +10,13 @@ Project goal is to automate the creation of accessible full-text (sound and text
 
 ### Windows
 
-- Python 3.7 https://www.python.org/downloads/release/python-370/
+- [Python 3.7+](https://www.python.org/downloads/release/python-370/)
 
-- Python 2.7 https://www.python.org/download/releases/2.7/
+- [Python 2.7](https://www.python.org/download/releases/2.7/)
 
-- Microsoft Visual C++ Compiler for Python 2.7 https://www.microsoft.com/EN-US/DOWNLOAD/DETAILS.ASPX?ID=44266
+- [Microsoft Visual C++ Compiler for Python 2.7](https://www.microsoft.com/EN-US/DOWNLOAD/DETAILS.ASPX?ID=44266)
 
-- Aeneas https://github.com/sillsdev/aeneas-installer/releases
+- [Aeneas](https://github.com/sillsdev/aeneas-installer/releases)
 
 Aeneas has its own requirements that come with the aeneas-installer but can also be installed seperately using pip.
 
@@ -62,11 +62,11 @@ Their GUI program is capable of running all these scripts though we are using th
 
 ## Requirements & Setup
 
-Before installing the Daisy Pipeline 2, install Java version 14 from https://www.oracle.com/java/technologies/javase-jdk14-downloads.html
+Before installing the Daisy Pipeline 2, install [Java version 14](https://www.oracle.com/java/technologies/javase-jdk14-downloads.html)
 
 Daisy Pipeline 2 requires at least version 11 of Java, but there were some issues with using version 11 in early tests.
 
-Follow the installation guide found at https://daisy.github.io/pipeline/Download.html
+Follow the [installation guide](https://daisy.github.io/pipeline/Download.html)
 
 Make sure the install package includes the CLI
 
