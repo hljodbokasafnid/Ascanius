@@ -1,0 +1,36 @@
+<div class="field">
+  <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+    <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
+      <label class="file-label">
+        <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory
+          directory>
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span id="file-label-span" class="file-label">
+            Upload folder...
+          </span>
+        </span>
+        <span class="file-name has-text-centered">
+          <% if (action == "aeneas") { %>
+            Requires HTML and mp3 files
+          <% } else if (action == "convert") { %>
+            Requires a valid Daisy 2.02 book
+          <% } else { %>
+            Requires valid Daisy 2.02 books
+          <% } %>
+        </span>
+      </label>
+    </div>
+    <div class="columns pt-5 is-centered">
+      <div class="column is-half">
+        <progress class="progress progress-bar is-primary is-medium" value="0" max="100"
+          style="display: none;">0%</progress>
+        <textarea id="process-feed" class="textarea is-large is-primary has-fixed-size" style="display: none;"
+          readonly></textarea>
+      </div>
+    </div>
+    <!-- upload.js automatically submits the form when files input changes -->
+  </form>
+</div>

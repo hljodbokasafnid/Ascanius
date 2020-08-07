@@ -9,12 +9,8 @@ const fs = require("fs-extra");
 const serveIndex = require("serve-index");
 const multer = require("multer");
 
-// Handles getting the smil zip files ready for the client
+// Handles getting the output files ready for the client
 const books = require("./libs/books");
-// Uses websocket.io to relay the output from the python aeneas (main.py) to the client
-const aeneas = require("./libs/aeneas");
-// Uses websocket.io to relay the output from the python aeneas (main.py) to the client
-const convert = require("./libs/convert");
 
 app.use(bodyParser.json());
 app.set("view-engine", "ejs");
@@ -24,68 +20,25 @@ app.use(favicon("./public/images/favicon.ico"));
 
 app.post('/upload/:folder', async function (req, res) {
   // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
-
-  const book_name = req.params['folder'];
-
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      var dir = "";
-      if (file['originalname'].split(".")[1].match(/jpg|png|jpeg|svg|gif/)) {
-        // If we have a jpg image we send it to images folder
-        dir = `./public/uploads/${book_name}/images`;
-      } else {
-        // Folder designated by the input files html file.
-        dir = `./public/uploads/${book_name}/`;
-      }
+      // Get filepath from preserved Path
+      var filepath = file['originalname'].split('/').slice(0, -1).join('/');
+      var dir = `./public/uploads/${filepath}/`;
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
       cb(null, dir);
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname);
+      // Get the original name (removing the preserved path in front)
+      var originalname = file.originalname.split('/').slice(-1).toString();
+      cb(null, originalname);
     }
   });
 
   // Assign multer with input file fields to upload
-  var upload = multer({ storage: storage }).fields([{ name: 'uploads' }]);
-
-  script_done = upload(req, res, async function (err) {
-    if (err) {
-      return res.end("Error uploading file.");
-    }
-    // If upload finishes then the client will emit a socket io message.
-    // Nothing more needs to be done here.
-  });
-});
-
-app.post('/upload_convert/:folder', async function (req, res) {
-  // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
-
-  const book_name = req.params['folder'];
-
-  var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      var dir = "";
-      if (file['originalname'].split(".")[1].match(/jpg|png|jpeg|svg|gif/)) {
-        // If we have a jpg image we send it to images folder
-        dir = `./public/uploads/${book_name}/images`;
-      } else {
-        // Folder designated by the input files html file.
-        dir = `./public/uploads/${book_name}/`;
-      }
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
-      }
-      cb(null, dir);
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    }
-  });
-
-  // Assign multer with input file fields to upload
-  var upload = multer({ storage: storage }).fields([{ name: 'uploads' }]);
+  var upload = multer({ storage: storage, preservePath: true }).fields([{ name: 'uploads' }]);
 
   script_done = upload(req, res, async function (err) {
     if (err) {
@@ -99,7 +52,6 @@ app.post('/upload_convert/:folder', async function (req, res) {
 app.post('/delete',  function (req, res) {
   // Designate storage location dynamically by the folder parameter set in upload.js by looking for the book html file.
   var files = req.body;
-  console.log(files);
   for (var file in files) {
       try {
         var filepath = path.join(__dirname, "public", "output", files[file]);
@@ -114,11 +66,15 @@ app.post('/delete',  function (req, res) {
 });
 
 app.get("/", async function (req, res) {
-  res.render("index.ejs", { zip_files: await books.getBooks("zip"), active: "smil" });
+  res.render("index.ejs", { files: await books.getBooks("zip"), active: "smil" });
 });
 
 app.get("/convert", async function (req, res) {
-  res.render("convert.ejs", { epub_files: await books.getBooks("epub"), active: "convert" });
+  res.render("convert.ejs", { files: await books.getBooks("epub"), active: "convert" });
+});
+
+app.get("/batchconvert", async function (req, res) {
+  res.render("batch_convert.ejs", { files: await books.getBooks("batch.zip"), active: "batchconvert" });
 });
 
 app.get("/about", function (req, res) {

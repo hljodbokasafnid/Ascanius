@@ -1,6 +1,12 @@
+// Connect to io socket
 var socket = io().connect('http://localhost:5000');
+
+// Get the input and description
 const fileInput = document.querySelector('#upload-files input[type=file]');
 const description = document.querySelector('#upload-files .file-name');
+
+// Get the current window location
+var current = window.location.pathname;
 
 fileInput.onchange = () => {
   $(".progress-bar").text("0%");
@@ -12,13 +18,16 @@ fileInput.onchange = () => {
     var bookname = "NULL";
     // Relay the folder name
     var foldername = fileInput.files[0]['webkitRelativePath'].split("/")[0].split(" ").join("_");
-    var uploadpath = '/upload_convert/' + foldername;
+    var uploadpath = '/upload/' + foldername;
     document.getElementById('upload-form').action = uploadpath;
     for (var i = 0; i < fileInput.files.length; i++) {
-      var filename = fileInput.files[i].name;
-      if (filename.includes("html") && filename !== "ncc.html") {
-        // Relay the book name
-        var bookname = fileInput.files[i].name.split(".")[0];
+      // Check whether we are uploading for aeneas or dp2
+      if (current === "/") {
+        var filename = fileInput.files[i].name;
+        if (filename.includes("html") && filename !== "ncc.html") {
+          // Relay the book name if aeneas
+          var bookname = fileInput.files[i].name.split(".")[0];
+        }
       }
       formData.append('uploads', fileInput.files[i]);
     }
@@ -41,19 +50,26 @@ fileInput.onchange = () => {
             $(".progress-bar").attr("value", percentComplete);
 
             if (percentComplete === 100) {
-              description.textContent = "Aeneas Processing.."
+              if (current === "/") {
+                description.textContent = "Aeneas Processing..";
+              } else {
+                description.textContent = "Converting to epub3..";
+              }
               $("#upload-files").attr("class", "file is-centered is-boxed is-info has-name is-large");
               $("#file-label-span").text("Upload Complete");
               //console.log("upload completed, " + percentComplete + "%");
               // Let server know that its uploaded and that the client expects data
-              socket.emit('uploaded', foldername, bookname);
-              $("#aeneas-feed").show();
+              // Emit Uploaded for Aeneas Uploaded_Convert for Conversion to Epub3
+              if (current === "/") {
+                socket.emit('uploaded', foldername, bookname);
+              } else {
+                socket.emit('uploaded_convert', foldername);
+              }
+              $("#process-feed").show();
             }
           }
         }, false);
-
         return xhr;
-
       }
     });
     }
@@ -61,17 +77,22 @@ fileInput.onchange = () => {
 
 socket.on('newdata', (d) => {
   //console.log(d);
-  $("#aeneas-feed").show();
-  $("#aeneas-feed").prepend(d);
+  $("#process-feed").show();
+  $("#process-feed").prepend(d);
 });
 
 socket.on('refresh', () => {
-  description.textContent = "Processing Complete, Refreshing.."
+  description.textContent = "Processing Complete, Refreshing..";
   setTimeout(() => {  location.reload(); }, 2000);
 });
 
 socket.on('error', () => {
-  description.textContent = "Aeneas Processing Error"
+  if (current === "/") {
+    description.textContent = "Aeneas Processing Error";
+  }
+  else {
+    description.textContent = "Conversion Processing Error";
+  }
   $("#upload-files").attr("class", "file is-centered is-boxed is-danger has-name is-large");
-  $("#aeneas-feed").attr("class", "textarea is-large is-danger has-fixed-size");
+  $("#process-feed").attr("class", "textarea is-large is-danger has-fixed-size");
 });
