@@ -10,7 +10,7 @@ Project goal is to automate the creation of accessible full-text (sound and text
 
 ### Windows
 
-- [Python 3.7+](https://www.python.org/downloads/release/python-370/)
+- [Python 3.7+](https://www.python.org/downloads/)
 
 - [Python 2.7](https://www.python.org/download/releases/2.7/)
 
