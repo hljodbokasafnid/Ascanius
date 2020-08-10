@@ -57,13 +57,15 @@ exports = module.exports = function (io) {
 
       var preprocess = spawn('python3', ['./scripts/preprocess.py', folder_name, book_name]);
       preprocess.stdout.on('data', function(data) {
-        // TODO: Relay the preprocess "process" to the client
-        console.log(new Buffer(data, 'utf-8').toString());
+        io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
+      });
+      preprocess.stderr.on('data', function(data) {
+        io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
+        io.to(user_id).emit('error');
       });
 
       // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
       var process = spawn('dp2', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
-      //console.log(process['spawnargs']);
 
       process.stdout.on('data', function (data) {
         // Refresh the page when the process is done and no error was raised
