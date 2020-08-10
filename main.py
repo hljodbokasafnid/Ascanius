@@ -65,13 +65,13 @@ if __name__ == "__main__":
             jobDone = True
         else:
             # Raise the exception if segmented files dont match mp3 files (equal number of files)
-            raise Exception()
+            raise Exception("The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         if jobDone:
             shutil.make_archive("./public/output/{}".format(foldername), 'zip', "./public/output/{}".format(foldername))
             # This "Done" print statement is used by the server to detect when the program finishes running. (Websocket is listening for it)
             print("Done")
-    except:
-        print("ERROR: The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
+    except Exception as e:
+        print("ERROR: ", e)
         raise
     # Delete output/bookname/ folder and files when aeneas is done processing 
     shutil.rmtree("./public/output/{}".format(foldername))
