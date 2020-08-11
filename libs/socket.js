@@ -114,22 +114,19 @@ exports = module.exports = function (io) {
         io.to(user_id).emit('newdata', `${current_time}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Started\n`);
         var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
         // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
+        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path, '--zip', '--epub-filename', books[book] + '.epub', '-n', books[book]]);
         if (process.output.toString().includes('SUCCESS')) {
-          console.log("process string length:", process.output.toString().length);
           var current_time = new Date().toLocaleTimeString('en-GB');
           io.to(user_id).emit('newdata', `${current_time}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Succeeded\n`);
           succeeded.push(books[book]);
-          console.log(succeeded);
         } else {
           var current_time = new Date().toLocaleTimeString('en-GB');
           io.to(user_id).emit('newdata', `${current_time}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Failed\n`);
           failed.push(books[book]);
-          console.log(failed);
         }
       }
+      fs.remove(path.join(__dirname, '../public', 'uploads', parent_name));
       var current_time = new Date().toLocaleTimeString('en-GB');
-      io.to(user_id).emit('newdata', `${current_time}: \n Succeeded: ${succeeded}\n Failed: ${failed}$`);
       io.to(user_id).emit('newdata', `${current_time} - Refreshing.. Please Wait\n${current_time} - Complete\n`);
       io.to(user_id).emit('refresh');
       // TODO make get current time function
