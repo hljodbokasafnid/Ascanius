@@ -114,7 +114,7 @@ exports = module.exports = function (io) {
         io.to(user_id).emit('newdata', `${current_time}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Started\n`);
         var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
         // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + '/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
+        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + '/output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
         if (process.output.toString().includes('SUCCESS')) {
           var current_time = new Date().toLocaleTimeString('en-GB');
           io.to(user_id).emit('newdata', `${current_time}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Succeeded\n`);
@@ -123,9 +123,31 @@ exports = module.exports = function (io) {
           var current_time = new Date().toLocaleTimeString('en-GB');
           io.to(user_id).emit('newdata', `${current_time}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Failed\n`);
           failed.push(books[book]);
+          fs.writeFileSync(output_path + '/output/' + parent_name + book_name + '-failed.log', process.output.toString());
         }
       }
+      var logstring = () => {
+        var return_string = "===Conversion Log===\n\n";
+        if (succeeded.length > 0) {
+          return_string += "Succeeded Converting:\n";
+          for (var i in succeeded) {
+            return_string += `${succeeded[i]}\n`;
+          }
+          return_string += "\n";
+        }
+        if (failed.length > 0) {
+          return_string += "Failed Converting:\n"
+          for (var i in failed) {
+            return_string += `${failed[i]}\n`;
+          }
+        }
+        return return_string;
+      };
+      fs.writeFileSync(output_path + '/output/' + parent_name +'conversion.log', logstring());
       fs.remove(path.join(__dirname, '../public', 'uploads', parent_name));
+
+      //Create ZIP File of epub files and log files then remove all files from output + parent folder
+
       var current_time = new Date().toLocaleTimeString('en-GB');
       io.to(user_id).emit('newdata', `${current_time} - Refreshing.. Please Wait\n${current_time} - Complete\n`);
       io.to(user_id).emit('refresh');
