@@ -109,10 +109,9 @@ exports = module.exports = function (io) {
                 return book_files[file].split(".")[0];
               }
             }
-          });
-          var book_name_output = await book_name();
-          const convertBook = await (async function() {
-            var preprocess = spawn('python3', ['./scripts/preprocess.py', parent_name + '/' + book, book_name_output]);
+          })();
+          var convertBook = await (async function() {
+            var preprocess = spawn('python3', ['./scripts/preprocess.py', parent_name + '/' + book, book_name]);
             preprocess.stdout.on('data', function(data) {
               var current_time = new Date().toLocaleTimeString('en-GB');
               io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
@@ -123,9 +122,8 @@ exports = module.exports = function (io) {
               io.to(user_id).emit('newdata', `${current_time}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
               io.to(user_id).emit('error');
             });
-
             // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-            var process = spawn('dp2.exe', ['daisy202-to-epub3', '--href', book_path + '/' + book + '/ncc.html', '--output', output_path, '--epub-filename', book + '.epub', '-n', book]);
+            var process = await spawn('dp2.exe', ['daisy202-to-epub3', '--href', book_path + '/' + book + '/ncc.html', '--output', output_path, '--epub-filename', book + '.epub', '-n', book]);
             process.stdout.on('data', function (data) {
               console.log('any stdout');
               // Refresh the page when the process is done and no error was raised
