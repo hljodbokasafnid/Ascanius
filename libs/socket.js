@@ -145,15 +145,18 @@ exports = module.exports = function (io) {
         }
         return return_string;
       };
+      // Write the conversion log
       fs.writeFileSync(output_path + '/output/' + parent_name + '/' + parent_name +'_conversion.log', logstring());
+      // Remove temporary work files
       fs.remove(path.join(__dirname, '../public', 'uploads', parent_name));
-      await zip(output_path + '/output/' + parent_name, output_path + '/output/' + parent_name + '-batch.zip');
-      //Create ZIP File of epub files and log files then remove all files from output + parent folder
-
+      // Create ZIP File of epub files and log files then remove all files from output + parent folder
+      zip(output_path + '/output/' + parent_name, output_path + '/output/' + parent_name + '-batch.zip');
+      fs.remove(path.join(__dirname, '../public', 'output', parent_name));
+      // TODO make get current time function
+      // Last message before refreshing website
       var current_time = new Date().toLocaleTimeString('en-GB');
       io.to(user_id).emit('newdata', `${current_time} - Refreshing.. Please Wait\n${current_time} - Complete\n`);
       io.to(user_id).emit('refresh');
-      // TODO make get current time function
     });
   });
 }
