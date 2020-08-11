@@ -11,7 +11,8 @@ def clean(foldername, bookname):
         return css_class is None or css_class == "sentence" or css_class == "title" or css_class == "page-normal"
     
     def has_id_or_not(css_id):
-        return css_id is None or bool(re.compile("h[0-9]_[0-9]|hix[0-9]+"))
+        pattern = re.compile("h[0-9]_[0-9]|hix[0-9]+|[a-z]+_[0-9]+")
+        return css_id is None or bool(pattern.match(str(css_id)))
 
     # Take in all headings and spans (sentences), if they have lang or style they likely are not the ones we are looking for
     # images also taken in, though will most likely not be highlighted in the end product.

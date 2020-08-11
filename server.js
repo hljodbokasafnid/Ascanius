@@ -26,7 +26,7 @@ app.post('/upload/:folder', async function (req, res) {
       var filepath = file['originalname'].split('/').slice(0, -1).join('/');
       var dir = `./public/uploads/${filepath}/`;
       if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
+        fs.mkdirSync(dir, { recursive: true });
       }
       cb(null, dir);
     },

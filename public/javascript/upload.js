@@ -50,18 +50,22 @@ fileInput.onchange = () => {
             if (percentComplete === 100) {
               if (current === "/") {
                 description.textContent = "Aeneas Processing..";
-              } else {
+              } else if (current === "/convert") {
                 description.textContent = "Converting to epub3..";
+              } else {
+                description.textContent = "Batch Converting to epub3..";
               }
               $("#upload-files").attr("class", "file is-centered is-boxed is-info has-name is-large");
               $("#file-label-span").text("Upload Complete");
               //console.log("upload completed, " + percentComplete + "%");
               // Let server know that its uploaded and that the client expects data
-              // Emit Uploaded for Aeneas Uploaded_Convert for Conversion to Epub3
+              // Emit Uploaded for Aeneas, Uploaded_Convert for Conversion to Epub3, Uploaded_Convert_Batch for Batch Epub3 Conversion
               if (current === "/") {
                 socket.emit('uploaded', foldername, bookname);
-              } else {
+              } else if (current === "/convert") {
                 socket.emit('uploaded_convert', foldername, bookname);
+              } else {
+                socket.emit('uploaded_convert_batch', foldername);
               }
               $("#process-feed").show();
             }

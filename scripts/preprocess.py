@@ -8,7 +8,8 @@ def preprocess(foldername, bookname):
   try:
     print("Preprocessing", foldername)
     sys.stdout.flush()
-    with open("././public/uploads/{}/{}.html".format(foldername, bookname), "r") as f:
+    # Many html files have unicodes that utf-8 cant handle
+    with open("././public/uploads/{}/{}.html".format(foldername, bookname), "r", encoding='latin-1') as f:
       html_doc = f.read()
 
     soup = BeautifulSoup(html_doc, 'html.parser')
@@ -30,18 +31,20 @@ def preprocess(foldername, bookname):
           current_soup = BeautifulSoup(current_smil, 'html.parser')
           current_original = current_soup.find_all(re.compile("text"), id=line['id'])
           if len(current_original) > 0:
-            current_original[0]['id'] = current_original[0]['id'].replace(" ", "_")
-            current_original[0]['src'] = current_original[0]['src'].replace(" ", "_")
+            for issue in range(len(current_original)):
+              print("Replacing {} with {} in {}".format(current_original[issue]['id'], current_original[issue]['id'].replace(" ", "_"), current_smil))
+              sys.stdout.flush()
+              current_original[issue]['id'] = current_original[issue]['id'].replace(" ", "_")
+              current_original[issue]['src'] = current_original[issue]['src'].replace(" ", "_")
             # Replace the original smil file with a preprocessed smil file
             with open("././public/uploads/{}/{}".format(foldername, f), "w") as cf:
               cf.write(str(current_soup))
       line['id'] = line['id'].replace(" ", "_")
-
     # Replace the original file with a preprocessed html file
     with open("././public/uploads/{}/{}.html".format(foldername, bookname), "w") as f:
-      print("Finalizing Preprocess")
-      sys.stdout.flush()
       f.write(str(soup))
+    print("Preprocess Finished")
+    sys.stdout.flush()
   except Exception as exception:
     print("Error:", exception)
     sys.stderr.flush()
