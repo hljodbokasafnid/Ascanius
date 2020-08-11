@@ -1,9 +1,11 @@
 const spawn = require("child_process").spawn;
 const spawnSync = require("child_process").spawnSync;
+
 const { v4: uuid } = require("uuid");
 
 const fs = require("fs-extra");
 const path = require("path");
+const { zip } = require('zip-a-folder');
 
 exports = module.exports = function (io) {
   // Using the socket io, while connected if uploaded is called from client
@@ -143,9 +145,9 @@ exports = module.exports = function (io) {
         }
         return return_string;
       };
-      fs.writeFileSync(output_path + '/output/' + parent_name +'conversion.log', logstring());
+      fs.writeFileSync(output_path + '/output/' + parent_name + '/' + parent_name +'_conversion.log', logstring());
       fs.remove(path.join(__dirname, '../public', 'uploads', parent_name));
-
+      await zip(output_path + '/output/' + parent_name, output_path + '/output/' + parent_name + '-batch.zip');
       //Create ZIP File of epub files and log files then remove all files from output + parent folder
 
       var current_time = new Date().toLocaleTimeString('en-GB');
