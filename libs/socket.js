@@ -149,7 +149,7 @@ exports = module.exports = function (io) {
       if (!fs.existsSync(output_path + '/output/' + parent_name + '/')) {
         fs.mkdirSync(output_path + '/output/' + parent_name + '/', { recursive: true });
       }
-      fs.writeFileSync(output_path + '/output/' + parent_name + '/' + parent_name + '_conversion.log', logstring());
+      fs.writeFile(output_path + '/output/' + parent_name + '/' + parent_name + '_conversion.log', logstring());
       // Remove temporary work files
       fs.remove(path.join(__dirname, '../public', 'uploads', parent_name));
       // Create ZIP File of epub files and log files then remove all files from output + parent folder
