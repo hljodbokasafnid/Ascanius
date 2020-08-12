@@ -66,7 +66,7 @@ app.post('/delete',  function (req, res) {
 });
 
 app.get("/", async function (req, res) {
-  res.render("index.ejs", { files: await books.getBooks("zip"), active: "smil" });
+  res.render("index.ejs", { files: await books.getBooks("zip", "batch"), active: "smil" });
 });
 
 app.get("/convert", async function (req, res) {
@@ -74,7 +74,7 @@ app.get("/convert", async function (req, res) {
 });
 
 app.get("/batchconvert", async function (req, res) {
-  res.render("batch_convert.ejs", { files: await books.getBooks("batch.zip"), active: "batchconvert" });
+  res.render("batch_convert.ejs", { files: await books.getBooks("-batch.zip"), active: "batchconvert" });
 });
 
 app.get("/about", function (req, res) {

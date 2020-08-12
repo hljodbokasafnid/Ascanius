@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-function getBooks(file_ending) {
+function getBooks(file_ending, exclude=null) {
     // Returns a list of books as zip files sorted by upload/creation date
     return new Promise(resolve => {
         zip_files = [];
@@ -16,7 +16,7 @@ function getBooks(file_ending) {
             } 
             // Listing all files using forEach
             files.forEach(function (file) {
-                if (file.endsWith(file_ending)) {
+                if (file.endsWith(file_ending) && !file.includes(exclude)) {
                     var stats = fs.statSync(path.join(directoryPath, file));
                     zip_files.push({ filename: file, date: stats.mtime });
                 }
