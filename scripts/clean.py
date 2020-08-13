@@ -8,7 +8,8 @@ def clean(foldername, bookname):
     soup = BeautifulSoup(html_doc, 'html.parser')
 
     def is_sentence_or_h1(css_class):
-        return css_class is None or css_class == "sentence" or css_class == "title" or css_class == "page-normal"
+        # If the sentence has the class="ignore" then it will not be included (only needed when some text is not read)
+        return (css_class is None or css_class == "sentence" or css_class == "title" or css_class == "page-normal") and css_class != "ignore"
     
     def has_id_or_not(css_id):
         pattern = re.compile("h[0-9]_[0-9]|hix[0-9]+|[a-z]+_[0-9]+|page-[0-9]+")
