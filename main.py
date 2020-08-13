@@ -6,6 +6,7 @@ from datetime import datetime
 from scripts.clean import clean
 from scripts.segment import segment
 from scripts.prefix import get_smil_prefix
+from scripts.generate_ids import generate_id
 import sys
 import shutil
 
@@ -20,6 +21,9 @@ if __name__ == "__main__":
 
         # Only include the mp3 files
         mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3")]
+
+        # Makes sure that all spans with class="sentence" have some ID
+        generate_id(foldername, bookname)
 
         # Clean the book before segmenting
         # Combs the book for headers and sentences

@@ -14,7 +14,7 @@ def get_smil_prefix(bookname):
 
     # If the ncc file comes from Hindenburg the ncc file expects the files to be named sXXX.smil
     # If the ncc file comes from Publisher the ncc file expects the files to be named [a-z]{4}[0-9]{4}.smil
-    if prefix[0] == "s":
+    if prefix[0] == "s" and prefix[1].isdigit():
         return ("s", 3)
     else:
         return (prefix[:4], 4)
