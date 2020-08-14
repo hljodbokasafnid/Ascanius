@@ -2,8 +2,7 @@
   <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
     <div id="upload-files" class="file is-centered is-boxed is-primary has-name is-large">
       <label class="file-label">
-        <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory
-          directory>
+        <input class="file-input" type="file" name="uploads" multiple="multiple" hidden webkitdirectory directory>
         <span class="file-cta">
           <span class="file-icon">
             <i class="fas fa-upload"></i>
@@ -14,19 +13,31 @@
         </span>
         <span class="file-name has-text-centered">
           <% if (action == "aeneas") { %>
-            Requires HTML and mp3 files
+          Requires HTML and mp3 files
           <% } else if (action == "convert") { %>
-            Requires a valid Daisy 2.02 book
+          Requires a valid Daisy 2.02 book
           <% } else { %>
-            Requires valid Daisy 2.02 books
+          Requires valid Daisy 2.02 books
           <% } %>
         </span>
       </label>
     </div>
     <div class="columns pt-5 is-centered">
       <div class="column is-half">
-        <p class="progress-text has-text-primary is-pulled-right subtitle mb-0"></p>
-        <p class="progress-description has-text-primary is-pulled-left subtitle mb-0"></p>
+        <nav class="level mb-0">
+          <div class="level-left">
+            <div class="level-item">
+                <p class="estimated-time-left heading has-text-weight-bold has-text-primary is-size-5"></p>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <div>
+                <p class="progress-text heading has-text-weight-bold has-text-primary is-size-5"></p>
+              </div>
+            </div>
+          </div>
+        </nav>
         <progress class="progress progress-bar is-primary is-medium" value="0" max="100"
           style="display: none;">0%</progress>
         <textarea id="process-feed" class="textarea is-large is-primary has-fixed-size" style="display: none;"
