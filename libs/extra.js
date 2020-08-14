@@ -3,6 +3,7 @@ function getCurrentTime() {
     return new Date().toLocaleTimeString('en-GB');
 }
 
+// If we need to wait for an arbitrary amount of time
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
 module.exports = {
