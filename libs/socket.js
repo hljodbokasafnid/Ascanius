@@ -68,15 +68,19 @@ exports = module.exports = function (io) {
       var book_path = './public/uploads/' + folder_name;
       var output_path = './public/';
 
-      var preprocess = spawn('python3', ['./scripts/preprocess.py', folder_name, book_name]);
-      preprocess.stdout.on('data', function (data) {
-        io.to(user_id).emit('newdata', `${time()}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
-      });
+      if (book_name !== undefined) {
+        // Preprocess the html file for known errors
+        var preprocess = spawn('python3', ['./scripts/preprocess.py', folder_name, book_name]);
+        preprocess.stdout.on('data', function (data) {
+          io.to(user_id).emit('newdata', `${time()}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
+        });
 
-      preprocess.stderr.on('data', function (data) {
-        io.to(user_id).emit('newdata', `${time()}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
-        io.to(user_id).emit('error');
-      });
+        // Output any errors that occur during preprocessing
+        preprocess.stderr.on('data', function (data) {
+          io.to(user_id).emit('newdata', `${time()}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
+          io.to(user_id).emit('error');
+        });
+      }
 
       // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
       var process = spawn('dp2' + dp2ending, ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
@@ -109,6 +113,8 @@ exports = module.exports = function (io) {
       var succeeded = [];
       var failed = [];
       io.to(user_id).emit('newdata', `Converting all daisy books found in '${parent_name}' folder.\n`);
+      // For each book found inside of the uploaded folder we check whether it has an HTML file that is not ncc
+      // If so then we send it to preprocessing
       for (var book in books) {
         var book_name = await (async function () {
           var book_files = await fs.readdir(book_path + '/' + books[book]);
@@ -127,6 +133,7 @@ exports = module.exports = function (io) {
 
         if (book_name !== undefined) {
           var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
+          io.to(user_id).emit('newdata', preprocess.output.toString());
         }
 
         // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/

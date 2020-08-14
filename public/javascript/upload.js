@@ -15,7 +15,7 @@ fileInput.onchange = () => {
     $(".progress-bar").show();
     description.textContent = "Uploading Files..";
     var formData = new FormData();
-    var bookname = "NULL";
+    var bookname = undefined;
     // Relay the folder name
     var foldername = fileInput.files[0]['webkitRelativePath'].split("/")[0].split(" ").join("_");
     var uploadpath = '/upload/' + foldername;
@@ -25,7 +25,7 @@ fileInput.onchange = () => {
       var filename = fileInput.files[i].name;
       if (filename.includes("html") && filename !== "ncc.html") {
         // Relay the book name if aeneas
-        var bookname = fileInput.files[i].name.split(".")[0];
+        bookname = fileInput.files[i].name.split(".")[0];
       }
       formData.append('uploads', fileInput.files[i]);
     }
