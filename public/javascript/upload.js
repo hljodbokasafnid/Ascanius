@@ -45,6 +45,8 @@ fileInput.onchange = () => {
             percentComplete = parseInt(percentComplete * 100);
 
             $(".progress-bar").text(percentComplete + "%");
+            $(".progress-description").text("Uploading..");
+            $(".progress-text").text(percentComplete + "%");
             $(".progress-bar").attr("value", percentComplete);
 
             if (percentComplete === 100) {
@@ -56,8 +58,8 @@ fileInput.onchange = () => {
                 description.textContent = "Batch Converting to epub3..";
               }
               $("#upload-files").attr("class", "file is-centered is-boxed is-info has-name is-large");
+              $(".progress-description").text("Upload Complete");
               $("#file-label-span").text("Upload Complete");
-              //console.log("upload completed, " + percentComplete + "%");
               // Let server know that its uploaded and that the client expects data
               // Emit Uploaded for Aeneas, Uploaded_Convert for Conversion to Epub3, Uploaded_Convert_Batch for Batch Epub3 Conversion
               if (current === "/") {
@@ -78,7 +80,6 @@ fileInput.onchange = () => {
 }
 
 socket.on('newdata', (d) => {
-  //console.log(d);
   $("#process-feed").show();
   $("#process-feed").prepend(d);
 });
