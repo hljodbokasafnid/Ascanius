@@ -74,7 +74,7 @@ If the Pipeline installer prompts you to install java 11 through them press "No"
 
 Open up a command line and use the command
 - "dp2.exe help" (windows)
-- "dp2 help" (linux, add 'export PATH="$PATH:/opt/daisy-pipeline2-cli/"' to ~/.bashrc (remove '') to see if the webserver and everything else is working correctly.
+- "dp2 help" (linux, add 'export PATH="$PATH:/opt/daisy-pipeline2-cli/"' to ~/.bashrc (remove ' ') to see if the webserver and everything else is working correctly.
 
 ## Contributing
 
