@@ -68,11 +68,13 @@ Daisy Pipeline 2 requires at least version 11 of Java, but there were some issue
 
 Follow the [installation guide](https://daisy.github.io/pipeline/Download.html)
 
-Make sure the install package includes the CLI
+Make sure the install package includes [the CLI](https://github.com/daisy/pipeline-cli-go/releases), also available as a seperate download.
 
 If the Pipeline installer prompts you to install java 11 through them press "No".
 
-Open up a command line and use the command "dp2.exe help" to see if the webserver and everything else is working correctly.
+Open up a command line and use the command
+- "dp2.exe help" (windows)
+- "dp2 help" (linux, add 'export PATH="$PATH:/opt/daisy-pipeline2-cli/"' to ~/.bashrc (remove '') to see if the webserver and everything else is working correctly.
 
 ## Contributing
 
@@ -97,10 +99,16 @@ If you wish to contribute please contact HBS directly at hbs@hbs.is
 - You should now have a working full-text book
 
 ### Converting from Daisy 2.02 to Epub 3
-- Upload the folder containing the full daisy 2.02 ebook
+- Upload the folder containing a valid daisy 2.02 ebook
 - Validate the ebook if any errors occur
 - Wait for the Daisy Pipeline 2 to process the book
 - Download the epub file and open up in a ebook reader that supports Media Overlay (recommend [Thorium Reader Alpha](https://github.com/edrlab/thorium-reader/releases/tag/latest-windows))
+
+### Batch Conversion of Daisy 2.02 to Epub 3
+- Upload a folder containing nothing but valid daisy 2.02 ebooks
+- Wait for the conversion to finish
+- Download a zip file containing all books as epub 3 and or log files of failed books
+- Some books may need to be fixed before re-running them, also converting them by themselves may be a better option
 
 ## License
 
