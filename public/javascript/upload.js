@@ -68,6 +68,9 @@ fileInput.onchange = () => {
                 description.textContent = "Batch Converting to epub3..";
               }
               $("#upload-files").attr("class", "file is-centered is-boxed is-info has-name is-large");
+              $(".progress-bar").attr("class", "progress progress-bar is-info is-medium");
+              $(".progress-text").attr("class", "progress-text heading has-text-weight-bold has-text-primary is-size-5");
+              $(".estimated-time-left").attr("class", "estimated-time-left heading has-text-weight-bold has-text-primary is-size-5");
               $(".estimated-time-left").text("Upload Complete");
               $("#file-label-span").text("Upload Complete");
               // Let server know that its uploaded and that the client expects data
