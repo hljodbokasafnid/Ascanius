@@ -27,7 +27,7 @@ def process_smil_files(foldername):
   smil_files = [f for f in listdir("././public/output/{}/".format(foldername)) if isfile(join("././public/output/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
   
   # Check for meta (if meta, dont run)
-  with open(smil_files[0], 'r', encoding='utf8') as f:
+  with open('././public/output/{}/{}'.format(foldername, smil_files[0]), 'r', encoding='utf8') as f:
     first_smil = f.read()
   
   first_soup = BeautifulSoup(first_smil, 'html.parser')
@@ -58,7 +58,7 @@ def process_smil_files(foldername):
         pass
     for index, smil_file in enumerate(smil_files):
       # Open each smil file
-      with open(smil_file, 'r', encoding='utf8') as f:
+      with open('././public/output/{}/{}'.format(foldername, smil_file), 'r', encoding='utf8') as f:
         smil = f.read()
 
       # Turn it into soup

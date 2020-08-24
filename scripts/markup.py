@@ -47,7 +47,7 @@ def markup(foldername, bookname):
       # Valid URL characters A-Z, a-z, 0-9, -, ., _, ~, :, /, ?, #, [, ], @, !, $, &, ', (, ), *, +, ,, ;, %, and =.
       contains_links = re.findall(r'(<a href\=\"[\w\.\:\d\/\?\&\-\=\_\~\#\[\]\@\!\$\'\(\)\*\+\,\;\%]+\">[\w\.\:\d\/\?\&\-\=\_\~\#\[\]\@\!\$\'\(\)\*\+\,\;\%]+</a>)', sentences)
       # Generate a list of sentences using regex string
-      sentences = re.split(r'([^\.\?\!]+\w*\s*\.+(<\/\w+>)*\s*|[^\.\?\!]+\w*\s*\?+(<\/\w+>)*\s*|[^\.\?\!]+\w*\s*\!+(<\/\w+>)*\s*|[^\n](<.+>)*.+(<\/\w+>)*)', sentences)
+      sentences = re.split(r'([^\.\?\!]+\w*\s*\.+[\n| ]+(<\/\w+>)*\s*|[^\.\?\!]+\w*\s*\?+[\n| ]+(<\/\w+>)*\s*|[^\.\?\!]+\w*\s*\!+[\n| ]+(<\/\w+>)*\s*|[^\n](<.+>)*.+(<\/\w+>)*)', sentences)
       # Remove all empty elements in array
       sentences = list(filter(None, sentences))
       # Links have numerous '.' inside of them but we shouldn't split them up, so here we are putting them back together.

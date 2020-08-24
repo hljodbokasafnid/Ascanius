@@ -21,14 +21,6 @@ if __name__ == "__main__":
         foldername = sys.argv[1]
         bookname = sys.argv[2]
 
-        # Delete all pre-existing smil files except for master (Can upload straight from Hindenburg)
-        smil_files = [f for f in listdir("././public/uploads/{}/".format(foldername)) if isfile(join("././public/uploads/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
-        for smil in smil_files:
-            remove(smil)
-        copied_smil_files = [f for f in listdir("././public/output/{}/".format(foldername)) if isfile(join("././public/output/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
-        for smil in copied_smil_files:
-            remove(smil)
-        
         # Only include the mp3 files
         mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3") and not 'daisy-online-sample' in f]
 
