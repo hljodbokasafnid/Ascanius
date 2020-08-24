@@ -126,5 +126,5 @@ def process_smil_files(foldername):
         total_elapsed_time_float += float(dur)
 
         # Overwrite the original file
-        with open(smil_file, 'w', encoding='utf8') as f:
+        with open('././public/output/{}/{}'.format(foldername, smil_file), 'w', encoding='utf8') as f:
           f.write(soup.decode("utf8"))
