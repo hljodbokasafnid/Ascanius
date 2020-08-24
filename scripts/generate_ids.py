@@ -5,7 +5,8 @@ import string
 import shutil
 
 def generate_id(foldername, bookname):
-  # Generates ID's with a prefix for all spans that didn't get a prefix automatically provided to them by Publisher
+  # Generates ID's with a prefix for all spans that didn't get a prefix automatically provided to them before
+  # REVIEW this may be outdated
   random_prefix = [random.choice(string.ascii_letters).lower() for i in range(3)]
   prefix = "".join(random_prefix)
   with open("././public/uploads/{}/{}.html".format(foldername, bookname), "r", encoding="utf8") as f:

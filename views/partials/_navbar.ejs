@@ -4,23 +4,28 @@
       <img src="images/hbs-logo.png">
     </a>
   </div>
-  <div class="navbar-end">
-    <a class="navbar-item <% if (active == 'smil') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-      href="/">
-      Sync Audio
-    </a>
-    <a class="navbar-item <% if (active == 'convert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-      href="/convert">
-      Convert
-    </a>
-    <a class="navbar-item <% if (active == 'batchconvert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-      href="/batchconvert">
-      Batch Convert
-    </a>
-    <a class="navbar-item <% if (active == 'about') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-      href="/about">
-      About
-    </a>
-    <div class="navbar-item pl-6"></div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <p class="subtitle has-text-info navbar-item">Development</p>
+    </div>
+    <div class="navbar-end">
+      <a class="navbar-item <% if (active == 'smil') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+        href="/">
+        Sync Audio
+      </a>
+      <a class="navbar-item <% if (active == 'convert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+        href="/convert">
+        Convert
+      </a>
+      <a class="navbar-item <% if (active == 'batchconvert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+        href="/batchconvert">
+        Batch Convert
+      </a>
+      <a class="navbar-item <% if (active == 'about') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+        href="/about">
+        About
+      </a>
+      <div class="navbar-item pl-6"></div>
+    </div>
   </div>
 </nav>

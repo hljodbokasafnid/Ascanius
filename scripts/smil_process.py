@@ -11,8 +11,6 @@ doctype = '<!DOCTYPE smil PUBLIC "-//W3C//DTD SMIL 1.0//EN" "http://www.w3.org/T
 
 # REVIEW Metadata in head looks to be optional, is included below just in case
 
-smil_files = [f for f in listdir("./") if isfile(join("./", f)) and f.endswith(".smil") and not 'master' in f]
-
 def get_seconds(time_string):
   hour, minute, seconds = time_string.split(':')
   return '{0:.3f}'.format(int(hour) * 3600 + int(minute) * 60 + float(seconds))
@@ -25,9 +23,11 @@ def get_hms(time_float):
   milliseconds = str(Decimal(str("0." + milliseconds)).quantize(Decimal('.001'), rounding=ROUND_DOWN)).split('.')[1]
   return "%02d:%02d:%02d.%s" % (hours, minutes, seconds, milliseconds)
 
-def process_smil_files(files):
+def process_smil_files(foldername):
+  smil_files = [f for f in listdir("././public/output/{}/".format(foldername)) if isfile(join("././public/output/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
+  
   # Check for meta (if meta, dont run)
-  with open(files[0], 'r', encoding='utf8') as f:
+  with open(smil_files[0], 'r', encoding='utf8') as f:
     first_smil = f.read()
   
   first_soup = BeautifulSoup(first_smil, 'html.parser')
@@ -36,7 +36,7 @@ def process_smil_files(files):
 
   if not rerun:
     total_elapsed_time_float = 0.0
-    with open('ncc.html', 'r', encoding='utf8') as f:
+    with open('././public/output/{}/ncc.html'.format(foldername), 'r', encoding='utf8') as f:
       ncc = f.read()
 
     # Grab another soup
@@ -56,7 +56,7 @@ def process_smil_files(files):
           meta_generator = ncc.new_tag('meta', attrs={ 'name':i['name'], 'content':i['content'] })
       except:
         pass
-    for index, smil_file in enumerate(files):
+    for index, smil_file in enumerate(smil_files):
       # Open each smil file
       with open(smil_file, 'r', encoding='utf8') as f:
         smil = f.read()
@@ -128,5 +128,3 @@ def process_smil_files(files):
         # Overwrite the original file
         with open(smil_file, 'w', encoding='utf8') as f:
           f.write(soup.decode("utf8"))
-
-process_smil_files(smil_files)

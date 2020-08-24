@@ -1,12 +1,14 @@
 from aeneas.executetask import ExecuteTask
 from aeneas.task import Task
-from os import listdir
+from os import listdir, remove
 from os.path import isfile, join
 from datetime import datetime
+from scripts.markup import markup
+from scripts.generate_ids import generate_id
 from scripts.clean import clean
 from scripts.segment import segment
 from scripts.prefix import get_smil_prefix
-from scripts.generate_ids import generate_id
+from scripts.smil_process import process_smil_files
 import sys
 import shutil
 
@@ -19,8 +21,20 @@ if __name__ == "__main__":
         foldername = sys.argv[1]
         bookname = sys.argv[2]
 
+        # Delete all pre-existing smil files except for master (Can upload straight from Hindenburg)
+        smil_files = [f for f in listdir("././public/uploads/{}/".format(foldername)) if isfile(join("././public/uploads/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
+        for smil in smil_files:
+            remove(smil)
+        copied_smil_files = [f for f in listdir("././public/output/{}/".format(foldername)) if isfile(join("././public/output/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
+        for smil in copied_smil_files:
+            remove(smil)
+        
         # Only include the mp3 files
-        mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3")]
+        mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3") and not 'daisy-online-sample' in f]
+
+        # Generate markup, takes all paragraphs and turns them into sentences 
+        # replacing publisher, will NOT run if publisher has already generated the sentences
+        markup(foldername, bookname)
 
         # Makes sure that all spans with class="sentence" have some ID
         generate_id(foldername, bookname)
@@ -71,9 +85,12 @@ if __name__ == "__main__":
             # Raise the exception if segmented files dont match mp3 files (equal number of files)
             raise Exception("The number of segmentation files and mp3 files does not match.\nPlease fix, refresh and try again.")
         if jobDone:
+            # Process the smil files, converting from smil v3 (aeneas) to smil v1 which most daisy readers use
+            process_smil_files(foldername)
             shutil.make_archive("./public/output/{}".format(foldername), 'zip', "./public/output/{}".format(foldername))
             # This "Done" print statement is used by the server to detect when the program finishes running. (Websocket is listening for it)
             print("Done")
+        
     except Exception as e:
         print("ERROR: ", e)
         raise
