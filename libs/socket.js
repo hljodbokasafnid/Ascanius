@@ -76,7 +76,7 @@ exports = module.exports = function (io) {
       }
 
       // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-      var process = spawn('dp2.exe', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
+      var process = spawn('dp2', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
 
       process.stdout.on('data', function (data) {
         // Refresh the page when the process is done and no error was raised
