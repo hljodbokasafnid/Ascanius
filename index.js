@@ -1,4 +1,4 @@
-const listenPort = 6000;
+const listenPort = 5500;
 const app = require("./server.js");
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
