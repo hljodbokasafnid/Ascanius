@@ -9,6 +9,16 @@ const fs = require("fs-extra");
 const serveIndex = require("serve-index");
 const multer = require("multer");
 
+// Create Empty public/output/ and public/uploads/
+const outputPath = path.join('public', 'output');
+const uploadsPath = path.join('public', 'uploads');
+if (!fs.existsSync(outputPath)) {
+  fs.mkdirSync(outputPath, { recursive: true });
+}
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+}
+
 // Handles getting the output files ready for the client
 const books = require("./libs/books");
 
