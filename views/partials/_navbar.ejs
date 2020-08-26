@@ -3,29 +3,25 @@
     <a class="navbar-item" href="/">
       <img src="images/hbs-logo.png">
     </a>
+    <p class="heading is-size-5 has-text-weight-bold has-text-danger navbar-item">Development</p>
   </div>
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <p class="heading is-size-5 has-text-weight-bold has-text-danger navbar-item">Development</p>
-    </div>
-    <div class="navbar-end">
-      <a class="navbar-item <% if (active == 'smil') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-        href="/">
-        Sync Audio
-      </a>
-      <a class="navbar-item <% if (active == 'convert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-        href="/convert">
-        Convert
-      </a>
-      <a class="navbar-item <% if (active == 'batchconvert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-        href="/batchconvert">
-        Batch Convert
-      </a>
-      <a class="navbar-item <% if (active == 'about') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
-        href="/about">
-        About
-      </a>
-      <div class="navbar-item pl-6"></div>
-    </div>
+  <div class="navbar-end">
+    <a class="navbar-item <% if (active == 'smil') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+      href="/">
+      Sync Audio
+    </a>
+    <a class="navbar-item <% if (active == 'convert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+      href="/convert">
+      Convert
+    </a>
+    <a class="navbar-item <% if (active == 'batchconvert') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+      href="/batchconvert">
+      Batch Convert
+    </a>
+    <a class="navbar-item <% if (active == 'about') { %>has-background-info<% } else { %>has-background-primary<% } %> has-text-white"
+      href="/about">
+      About
+    </a>
+    <div class="navbar-item pl-6"></div>
   </div>
 </nav>
