@@ -5,6 +5,7 @@ import re
 from bs4 import BeautifulSoup
 
 def preprocess(foldername, bookname):
+  # In cases where no bookname was given or found and gets returned as null don't run
   if bookname == 'null':
     return
   try:

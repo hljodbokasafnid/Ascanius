@@ -1,4 +1,4 @@
-# HBS-Full-Text-Automation
+# HBS-Full-Text-Automation (Ascanius)
 
 Project goal is to automate the creation of accessible full-text (sound and text synced) ebooks in epub3 and daisy format.
 
@@ -31,7 +31,12 @@ If issues arise with CEW then go into System Properties -> Environment Variables
 
 Add a new variable under System Variables named "AENEAS_WITH_CEW" and set it to "False"
 
-### Linux / Ubuntu
+Note:
+Since Linux is the preferred operating system and the Windows operating system was only used with a WSL Ubuntu during development, 
+there is a problem calling Daisy Pipeline 2 in libs/socket.js, 
+it calls dp2 in the spawn function but windows users may want to change this to dp2.exe
+
+### Linux / Ubuntu (Preferred)
 
 Follow the installation guide found at https://github.com/readbeyond/aeneas/blob/master/wiki/INSTALL.md
 
@@ -86,7 +91,7 @@ If you wish to contribute please contact HBS directly at hbs@hbs.is
 - Make sure to have [nodejs](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/get-npm) installed
 - Run "npm install" to install all the required dependencies
 - Start the server with "npm start"
-- Server should now be running on http://localhost:5000
+- Server should now be running on http://localhost:5000 / 5500 (dev)
 
 ### Syncing Audio
 - Upload mp3 files, ncc.html and the book.html to the server

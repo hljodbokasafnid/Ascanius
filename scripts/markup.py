@@ -25,6 +25,7 @@ def write_to_soup(p, sentences, n_suffix, z_fill_len, soup):
   for link in contains_links:
     a_opening_index = None
     a_closing_index = None
+    # Join the sentences which have links in them to protect them
     for s_index, sentence in enumerate(sentences):
       if a_opening_index == None:
         if '<a href' in sentence:
@@ -74,8 +75,9 @@ def markup(foldername, bookname):
       subparagraphs = BeautifulSoup(str(p.contents), 'html.parser').find_all(re.compile('p|li|td|th|dt|dd'), id=valid_id)
       sentences = ''
       if subparagraphs:
-        #sublink = BeautifulSoup(str(p.contents), 'html.parser').find_all('a', href=re.compile('#h[0-9]+_[0-9]+'))
+        # Find all links in the subparagraphs
         sublink = p.select('a[href]')
+        # For each link found, protect them and reinsert them into p at the end
         for sl_index, sl in enumerate(sublink):
           sentences = ''.join([str(t) for t in sl.contents])
           sl.clear()

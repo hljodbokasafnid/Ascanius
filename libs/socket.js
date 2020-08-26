@@ -25,7 +25,6 @@ exports = module.exports = function (io) {
       // Copy contents to output before working on the original
       var source = path.resolve(__dirname, "..", "public", "uploads", folder_name);
       var destination = path.resolve(__dirname, "..", "public", "output", folder_name);
-
       await fs.copy(source, destination, function (err) {
         if (err) {
           console.log('An error occured while copying the folder.')

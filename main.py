@@ -21,7 +21,7 @@ if __name__ == "__main__":
         foldername = sys.argv[1]
         bookname = sys.argv[2]
 
-        # Only include the mp3 files
+        # Only include the mp3 files and sort for linux env
         mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3") and not 'daisy-online-sample' in f]
         mp3files.sort()
 

@@ -108,3 +108,4 @@ input/
 output/
 public/uploads/
 public/output/
+scripts/__pycache__

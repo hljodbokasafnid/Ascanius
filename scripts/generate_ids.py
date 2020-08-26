@@ -20,6 +20,7 @@ def generate_id(foldername, bookname):
   def has_no_id(css_id):
     return css_id is None
 
+  # Get all spans that are sentences but have no id and generate an id for that span
   spans = soup.find_all(re.compile("span"), id=has_no_id, class_=is_sentence)
   if spans:
     for i, span in enumerate(spans):
