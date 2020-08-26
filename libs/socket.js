@@ -125,6 +125,7 @@ exports = module.exports = function (io) {
         io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Started\n\n`);
 
         if (book_name !== undefined) {
+          io.to(user_id).emit('newdata', `${time()}: \n${bookname}\n\n`);
           var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
           io.to(user_id).emit('newdata', preprocess.output.toString());
         }

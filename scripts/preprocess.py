@@ -5,6 +5,8 @@ import re
 from bs4 import BeautifulSoup
 
 def preprocess(foldername, bookname):
+  if bookname == 'null':
+    return
   try:
     print("Preprocessing", foldername)
     sys.stdout.flush()
