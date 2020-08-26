@@ -23,6 +23,7 @@ if __name__ == "__main__":
 
         # Only include the mp3 files
         mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3") and not 'daisy-online-sample' in f]
+        mp3files.sort()
 
         # Generate markup, takes all paragraphs and turns them into sentences 
         # replacing publisher, will NOT run if publisher has already generated the sentences
