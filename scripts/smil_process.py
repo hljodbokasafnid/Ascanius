@@ -25,6 +25,7 @@ def get_hms(time_float):
 
 def process_smil_files(foldername):
   smil_files = [f for f in listdir("././public/output/{}/".format(foldername)) if isfile(join("././public/output/{}/".format(foldername), f)) and f.endswith(".smil") and not 'master' in f]
+  smil_files.sort()
   
   # Check for meta (if meta, dont run)
   with open('././public/output/{}/{}'.format(foldername, smil_files[0]), 'r', encoding='utf8') as f:

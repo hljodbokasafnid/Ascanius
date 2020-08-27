@@ -12,6 +12,13 @@ const sleep = require("./extra.js").sleep;
 
 exports = module.exports = function (io) {
   // Detect if the server is running on Linux or Windows
+  if (os.platform() === "win32") {
+    // If we are running windows then the proper ending for the dp2 pipeline when running CLI is .exe
+    var dp2ending = ".exe";
+  } else {
+    // If we are running linux or any debian type environment then its proper to just call dp2
+    var dp2ending = "";
+  }
   // Using the socket io, while connected if uploaded is called from client
   // Run the main script and emit the data to the server so we can read it client side
   io.sockets.on('connection', function (socket) {
@@ -25,6 +32,7 @@ exports = module.exports = function (io) {
       // Copy contents to output before working on the original
       var source = path.resolve(__dirname, "..", "public", "uploads", folder_name);
       var destination = path.resolve(__dirname, "..", "public", "output", folder_name);
+
       await fs.copy(source, destination, function (err) {
         if (err) {
           console.log('An error occured while copying the folder.')
@@ -75,7 +83,7 @@ exports = module.exports = function (io) {
       }
 
       // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-      var process = spawn('dp2', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
+      var process = spawn('dp2' + dp2ending, ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
 
       process.stdout.on('data', function (data) {
         // Refresh the page when the process is done and no error was raised
@@ -124,13 +132,12 @@ exports = module.exports = function (io) {
         io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Started\n\n`);
 
         if (book_name !== undefined) {
-          io.to(user_id).emit('newdata', `${time()}: \n${bookname}\n\n`);
           var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
           io.to(user_id).emit('newdata', preprocess.output.toString());
         }
 
         // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + '/output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
+        var process = spawnSync('dp2' + dp2ending, ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + 'output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
         if (process.output.toString().includes('SUCCESS')) {
           io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Succeeded\n\n`);
           succeeded.push(books[book]);

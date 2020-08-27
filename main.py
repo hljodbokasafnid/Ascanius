@@ -15,6 +15,7 @@ import shutil
 
 if __name__ == "__main__":
     try:
+        language = 'isl'
         # job is done whenever the for loop below has finished
         jobDone = False
         # bookname takes the name of the book.
@@ -42,7 +43,8 @@ if __name__ == "__main__":
 
         # Only include the text files that end in html
         segments = [f for f in listdir("./public/uploads/{}/segments/".format(foldername)) if isfile(join("./public/uploads/{}/segments/".format(foldername), f)) and f.endswith(".html")]
-
+        segments.sort()
+        
         # There needs to be the same number of mp3 files as there are segment files. 1 to 1 ratio!
         print("{} - Number of mp3 files: {}".format(datetime.now().time().strftime("%H:%M:%S"), len(mp3files)))
         print("{} - Number of segments: {}".format(datetime.now().time().strftime("%H:%M:%S"), len(segments)))
@@ -57,7 +59,7 @@ if __name__ == "__main__":
             # Run through each mp3 file and book segment
             for i, mp3 in enumerate(mp3files):
                 # Setup config string & absolute file path for audio/text/syncfile
-                config_string = u"task_language=isl|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref={}.html".format(mp3, bookname)
+                config_string = u"task_language={}|is_text_type=unparsed|os_task_file_format=smil|os_task_file_smil_audio_ref={}|os_task_file_smil_page_ref={}.html".format(language, mp3, bookname)
                 # Create Task
                 task = Task(config_string=config_string)
                 task.audio_file_path_absolute = u"./public/uploads/{}/{}".format(foldername, mp3)
