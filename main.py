@@ -11,7 +11,7 @@ from scripts.prefix import get_smil_prefix
 from scripts.smil_process import process_smil_files
 import sys
 import shutil
-
+import re
 
 if __name__ == "__main__":
     try:
