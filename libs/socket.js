@@ -132,13 +132,19 @@ exports = module.exports = function (io) {
         io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Started\n\n`);
 
         if (book_name !== undefined) {
-          var preprocess = spawn('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
-          io.to(user_id).emit('newdata', preprocess.output.toString());
+          var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
+          // Arbitrary wait time added, sockets were freezing causing the feed to halt
+          await sleep(500);
+          io.to(user_id).emit('newdata', preprocess.output.toString() + '\n');
+        } else {
+          io.to(user_id).emit('newdata', 'No book detected, only audio, skipping preprocessing.\n');
         }
 
         // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-        var process = spawn('dp2' + dp2ending, ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + 'output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
-        
+        var process = spawnSync('dp2' + dp2ending, ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + 'output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
+        // Arbitrary wait time added, sockets were freezing causing the feed to halt
+        await sleep(500);
+
         if (process.output.toString().includes('SUCCESS')) {
           io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Succeeded\n\n`);
           succeeded.push(books[book]);
@@ -172,7 +178,7 @@ exports = module.exports = function (io) {
       await fs.writeFile(output_path + '/output/' + parent_name + '/' + parent_name + '_conversion.log', log_string);
       
       // Create ZIP File of epub files and log files then remove all files from output + parent folder
-      await zip(output_path + '/output/' + parent_name, output_path + '/output/' + parent_name + '-batch.zip');
+      await zip(output_path + 'output/' + parent_name, output_path + 'output/' + parent_name + '-batch.zip');
 
       // Remove temporary work folders
       await fs.remove(path.join(__dirname, '../public', 'uploads', parent_name));
