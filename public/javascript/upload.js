@@ -1,5 +1,5 @@
 // Connect to io socket
-var socket = io().connect('http://localhost:5000');
+var socket = io().connect('http://localhost:5500');
 
 // Get the input and description
 const fileInput = document.querySelector('#upload-files input[type=file]');
