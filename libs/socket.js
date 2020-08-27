@@ -137,7 +137,7 @@ exports = module.exports = function (io) {
         }
 
         // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + '/output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
+        var process = spawnSync('dp2', ['daisy202-to-epub3', '--href', book_path + '/' + books[book] + '/ncc.html', '--output', output_path + 'output/' + parent_name, '--epub-filename', books[book] + '.epub', '-n', books[book]]);
         if (process.output.toString().includes('SUCCESS')) {
           io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Succeeded\n\n`);
           succeeded.push(books[book]);

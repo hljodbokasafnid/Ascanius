@@ -9,7 +9,7 @@ from scripts.prefix import get_smil_prefix
 from scripts.generate_ids import generate_id
 import sys
 import shutil
-
+import re
 
 if __name__ == "__main__":
     try:
@@ -19,8 +19,12 @@ if __name__ == "__main__":
         foldername = sys.argv[1]
         bookname = sys.argv[2]
 
-        # Only include the mp3 files
+        # Only include the mp3 files and sort so the mp3 files are in the correct order 01,02,03..etc
         mp3files = [f for f in listdir("./public/uploads/{}/".format(foldername)) if isfile(join("./public/uploads/{}/".format(foldername), f)) and f.endswith(".mp3")]
+        if 'daisy-online-sample.mp3' in mp3files:
+            # Hindenburg often includes a sample.mp3 file (just in case remove it before processing)
+            mp3files.remove('daisy-online-sample.mp3')
+        mp3files.sort()
 
         # Makes sure that all spans with class="sentence" have some ID
         generate_id(foldername, bookname)
