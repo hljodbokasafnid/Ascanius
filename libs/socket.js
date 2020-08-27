@@ -12,13 +12,6 @@ const sleep = require("./extra.js").sleep;
 
 exports = module.exports = function (io) {
   // Detect if the server is running on Linux or Windows
-  if (os.platform() === "win32") {
-    // If we are running windows then the proper ending for the dp2 pipeline when running CLI is .exe
-    var dp2ending = ".exe";
-  } else {
-    // If we are running linux or any debian type environment then its proper to just call dp2
-    var dp2ending = "";
-  }
   // Using the socket io, while connected if uploaded is called from client
   // Run the main script and emit the data to the server so we can read it client side
   io.sockets.on('connection', function (socket) {
@@ -83,7 +76,7 @@ exports = module.exports = function (io) {
       }
 
       // See list of optional commands here: https://daisy.github.io/pipeline/modules/daisy202-to-epub3/
-      var process = spawn('dp2' + dp2ending, ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
+      var process = spawn('dp2.exe', ['daisy202-to-epub3', '--href', book_path + '/ncc.html', '--output', output_path, '--epub-filename', folder_name + '.epub', '-n', folder_name]);
 
       process.stdout.on('data', function (data) {
         // Refresh the page when the process is done and no error was raised
