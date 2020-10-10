@@ -1,4 +1,4 @@
-# HBS-Full-Text-Automation
+# Ascanius - Full Text Automation
 
 Project goal is to automate the creation of accessible full-text (sound and text synced) ebooks in epub3 and daisy format.
 
