@@ -40,7 +40,7 @@ exports = module.exports = function (io) {
         }
       });
 
-      var process = spawn('python3', ['./main.py', folder_name, book_name]);
+      var process = spawn('python', ['./main.py', folder_name, book_name]);
       process.stdout.on('data', function (data) {
         // Receive progress from aeneas script
         // Refresh the page when the process is done and no error was raised
@@ -70,7 +70,7 @@ exports = module.exports = function (io) {
 
       if (book_name !== undefined) {
         // Preprocess the html file for known errors
-        var preprocess = spawn('python3', ['./scripts/preprocess.py', folder_name, book_name]);
+        var preprocess = spawn('python', ['./scripts/preprocess.py', folder_name, book_name]);
         preprocess.stdout.on('data', function (data) {
           io.to(user_id).emit('newdata', `${time()}: \n` + new Buffer(data, 'utf-8').toString() + "\n");
         });
@@ -132,7 +132,7 @@ exports = module.exports = function (io) {
         io.to(user_id).emit('newdata', `${time()}: \n[${Number(book) + 1}/${books.length}] - ${books[book]} Conversion Started\n\n`);
 
         if (book_name !== undefined) {
-          var preprocess = spawnSync('python3', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
+          var preprocess = spawnSync('python', ['./scripts/preprocess.py', parent_name + '/' + books[book], book_name]);
           // Arbitrary wait time added, sockets were freezing causing the feed to halt
           await sleep(500);
           io.to(user_id).emit('newdata', preprocess.output.toString() + '\n');

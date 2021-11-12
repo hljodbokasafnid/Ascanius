@@ -12,4 +12,4 @@ var date = new Date(version.split(" ")[1]).toLocaleString('en-GB');
 console.log("Running v" + version.split(" ")[0], "committed", date);
 
 // Listen to server  
-server.listen(listenPort, () => console.log(`App listening on port ${listenPort}`));
+server.listen(listenPort, () => console.log(`App listening on port ${listenPort}, http://localhost:${listenPort}`));
